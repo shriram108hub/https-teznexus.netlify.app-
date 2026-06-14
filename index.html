@@ -69,7 +69,6 @@
             border-bottom: 1px solid rgba(255,255,255,0.03);
         }
         
-        /* BADA TYPING EFFECT HEADING STYLE */
         .brand-container {
             display: flex; align-items: center; min-width: 450px; height: 100%;
         }
@@ -98,18 +97,40 @@
         .search-wrapper i { color: var(--neon-cyan); margin-right: 12px; }
         .search-wrapper input { background: transparent; border: none; color: #fff; width: 100%; outline: none; font-size: 0.9rem; }
 
-        /* DOCK-STYLE HORIZONTAL UTILITY NODES */
+        /* DOCK-STYLE HORIZONTAL UTILITY NODES (HEADER) - SCROLL FIX ADDED */
         .header-utility-menu {
-            display: flex; align-items: center; gap: 10px; padding: 10px 2rem; height: 95px;
-            overflow-x: auto; scrollbar-width: none; background: rgba(2, 6, 16, 0.6);
+            display: flex; align-items: center; gap: 10px; padding: 10px 2rem 15px 2rem; height: 100px;
+            overflow-x: auto; 
+            background: rgba(2, 6, 16, 0.6);
+            width: 100%;
+            scrollbar-width: thin; 
+            scrollbar-color: var(--neon-cyan) rgba(0,0,0,0.3);
         }
-        .header-utility-menu::-webkit-scrollbar { display: none; }
+        
+        .header-utility-menu::-webkit-scrollbar { 
+            height: 6px; 
+        }
+        .header-utility-menu::-webkit-scrollbar-track { 
+            background: rgba(0,0,0,0.3); 
+            border-radius: 10px;
+        }
+        .header-utility-menu::-webkit-scrollbar-thumb { 
+            background: var(--neon-cyan); 
+            border-radius: 10px; 
+        }
+        .header-utility-menu::-webkit-scrollbar-thumb:hover { 
+            background: var(--neon-gold); 
+        }
         
         .util-dock-node {
-            min-width: 82px; height: 75px; border-radius: 10px; background: rgba(0,0,0,0.3);
+            min-width: 85px; 
+            height: 75px; 
+            border-radius: 10px; 
+            background: rgba(0,0,0,0.3);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             color: var(--text-dim); text-decoration: none; cursor: pointer; transition: all 0.2s; 
             border: 1px solid transparent; text-align: center; padding: 4px;
+            flex-shrink: 0; 
         }
         .util-dock-node i { font-size: 1.25rem; margin-bottom: 6px; color: var(--text-dim); transition: all 0.2s; }
         .util-dock-node span { font-size: 0.68rem; font-weight: 700; line-height: 1.2; text-transform: uppercase; white-space: nowrap; }
@@ -122,17 +143,21 @@
         .util-dock-node.status-alert:hover { border-color: rgba(255, 170, 0, 0.3); color: var(--neon-gold); }
         .util-dock-node.status-alert:hover i { color: var(--neon-gold); }
 
-        /* Left Static Control Dock */
+        /* LEFT PANEL: SCROLL ON CORE ENGINE */
         .left-dock {
             position: fixed; top: var(--header-h); left: 0;
             width: var(--dock-w); height: calc(100vh - var(--header-h));
             background: var(--bg-dock); border-right: 1px solid rgba(20, 45, 85, 0.3);
-            display: flex; flex-direction: column; align-items: center; padding-top: 20px; gap: 12px; z-index: 900;
+            display: flex; flex-direction: column; align-items: center; padding: 20px 0; gap: 12px; z-index: 900;
+            overflow-y: auto; overflow-x: hidden; scrollbar-width: none;
         }
+        .left-dock::-webkit-scrollbar { display: none; }
+
         .dock-node {
             width: 64px; height: 64px; border-radius: 10px; background: rgba(0,0,0,0.3);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             color: var(--text-dim); cursor: pointer; transition: all 0.2s; border: 1px solid transparent;
+            text-decoration: none; flex-shrink: 0;
         }
         .dock-node i { font-size: 1.3rem; margin-bottom: 4px; }
         .dock-node span { font-size: 0.65rem; font-weight: 600; }
@@ -143,13 +168,14 @@
             position: fixed; top: var(--header-h); right: 0;
             width: var(--sidebar-w); height: calc(100vh - var(--header-h));
             background: var(--bg-dock); border-left: 1px solid rgba(20, 45, 85, 0.3);
-            padding: 1.5rem 0; z-index: 900; 
-            overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border-glow) transparent;
+            padding: 1.5rem 0 6rem 0; 
+            z-index: 900; 
+            overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: var(--border-glow) transparent;
         }
         .right-sidebar::-webkit-scrollbar { width: 5px; }
         .right-sidebar::-webkit-scrollbar-thumb { background: var(--border-glow); border-radius: 10px; }
         
-        .nav-tree { list-style: none; padding-bottom: 40px; }
+        .nav-tree { list-style: none; padding-bottom: 20px; }
         .nav-item { padding: 0 1rem; margin-bottom: 8px; }
         
         .nav-trigger {
@@ -159,10 +185,12 @@
             border: 1px solid rgba(255,255,255,0.02); text-transform: uppercase; letter-spacing: 0.5px;
         }
         .nav-trigger i.menu-main-icon { margin-right: 10px; color: var(--neon-cyan); width: 16px; text-align: center; }
+        .nav-trigger i.fa-angle-down { transition: transform 0.3s ease; }
+        .nav-trigger.active i.fa-angle-down { transform: rotate(180deg); }
         .nav-trigger:hover, .nav-trigger.active { background: var(--neon-matrix); color: var(--neon-cyan); border-color: rgba(0,240,255,0.15); }
         
-        .sub-deck { max-height: 0; overflow: hidden; transition: max-height 0.28s cubic-bezier(0.4, 0, 0.2, 1); padding-left: 1.5rem; list-style: none; }
-        .sub-deck.active { max-height: 400px; padding-top: 5px; padding-bottom: 5px; }
+        .sub-deck { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding-left: 1.5rem; list-style: none; }
+        .sub-deck.active { max-height: 1000px; padding-top: 5px; padding-bottom: 5px; }
         .sub-deck li a { 
             display: flex; align-items: center; gap: 8px; padding: 8px 10px; font-size: 0.82rem; 
             color: var(--text-dim); text-decoration: none; border-radius: 4px; transition: all 0.15s;
@@ -180,12 +208,11 @@
         .engine-indicator { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; }
         .engine-indicator::before { content: ''; display: inline-block; width: 4px; height: 18px; background: var(--neon-cyan); box-shadow: var(--neon-glow); }
 
-        /* UPGRADED CLEAR FLOATING INTERFACE (NO CARD BACKGROUND SYSTEM) */
         .services-fluid-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
         
         .cyber-premium-card {
-            background: transparent; /* Card backgrounds fully removed */
-            border: 1px solid transparent; /* Hidden by default */
+            background: transparent; 
+            border: 1px solid transparent; 
             border-radius: 16px;
             padding: 20px 15px; 
             display: flex; 
@@ -198,14 +225,13 @@
             position: relative;
         }
         
-        /* Clear Icons Floating (No Sphere Background Box) */
         .card-icon-sphere {
             width: auto; 
             height: auto; 
-            background: transparent !important; /* Circle box deleted */
+            background: transparent !important; 
             border: none !important; 
             box-shadow: none !important;
-            font-size: 2.5rem; /* Larger icon representation */
+            font-size: 2.5rem; 
             color: var(--neon-cyan); 
             filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.4));
             transition: all 0.25s ease;
@@ -229,11 +255,10 @@
             transition: all 0.25s ease;
         }
 
-        /* Pure Text and Icon Glow Hover Engine */
         .cyber-premium-card:hover {
             transform: translateY(-5px);
             border-color: rgba(0, 240, 255, 0.15);
-            background: rgba(0, 240, 255, 0.02); /* Very soft minimal light feedback */
+            background: rgba(0, 240, 255, 0.02); 
         }
         .cyber-premium-card:hover .card-icon-sphere { 
             color: #ffffff; 
@@ -310,7 +335,6 @@
 </head>
 <body>
 
-    <!-- 1. AUTH GATEWAY -->
     <div id="login-view">
         <div class="login-box">
             <h2>TEZ SHIVA TERMINAL</h2>
@@ -322,12 +346,10 @@
         </div>
     </div>
 
-    <!-- 2. SYSTEM WORKSPACE HUB -->
     <div id="dashboard-view">
         
         <header>
             <div class="header-top-row">
-                <!-- Typewriter Container Object -->
                 <div class="brand-container">
                     <div class="brand" id="liveSiteHeading">TEZ SHIVA CYBER SEWA</div>
                 </div>
@@ -337,31 +359,35 @@
                     <input type="text" id="instantSearch" placeholder="Filter through core 11 grid services..." oninput="streamFilter()">
                 </div>
                 <div class="header-controls">
-                    <div class="control-trigger" onclick="killTerminal()"><i class="fa-solid fa-power-off" style="color: #ff4d4d;"></i></div>
+                    <div class="control-trigger" onclick="killTerminal()"><i class="fa-solid fa-power-off" style="color: #ff4d4d; cursor:pointer;"></i></div>
                 </div>
             </div>
             
-            <!-- LEFT DOCK STYLE TOP UTILITY MENU -->
             <div class="header-utility-menu">
                 <a href="https://upbhulekh.gov.in/" target="_blank" class="util-dock-node"><i class="fa-solid fa-map-location-dot"></i><span>Khatuni</span></a>
                 <a href="https://ekhasra.up.gov.in/" target="_blank" class="util-dock-node"><i class="fa-solid fa-file-invoice"></i><span>Khasra</span></a>
                 <a href="https://upbhunaksha.gov.in/" target="_blank" class="util-dock-node"><i class="fa-solid fa-map"></i><span>Naksha</span></a>
                 <a href="https://nfsa.up.gov.in/Food/TrackingRationCard/NFSARCSearch.aspx" target="_blank" class="util-dock-node"><i class="fa-solid fa-receipt"></i><span>Ration Raseed</span></a>
+                <a href="https://cscsafar.in/" target="_blank" class="util-dock-node"><i class="fa-solid fa-ticket"></i><span>Ticket Booking</span></a>
+                <a href="https://webservices.bajajallianz.com/CSC/login.jsp" target="_blank" class="util-dock-node"><i class="fa-solid fa-shield-halved"></i><span>Insurance</span></a>
+
                 <a href="https://myaadhaarbeta.uidai.gov.in/CheckAadhaarStatus/en" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-fingerprint"></i><span>Aadhaar Status</span></a>
                 <a href="https://tin.tin.proteantech.in/pantan/StatusTrack.html" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-address-card"></i><span>PAN Status</span></a>
                 <a href="https://ecinet.eci.gov.in/" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-check-to-slot"></i><span>Voter Status</span></a>
-                <a href="https://pmkisan.gov.in/FarmerStatus.aspx" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-tractor"></i><span>PM Kisan Status</span></a>
-                <a href="https://sspy-up.gov.in/oap/public_new/UserLogin.aspx" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-hand-holding-heart"></i><span>Pension Status</span></a>
-                <a href="https://ewallet.uppcl.org/login" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-bolt"></i><span>Bill Payment</span></a>
+                <a href="https://pmkisan.gov.in/FarmerStatus.aspx" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-tractor"></i><span>PM Kisan Stat</span></a>
+                <a href="https://sspy-up.gov.in/oap/public_new/UserLogin.aspx" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-hand-holding-heart"></i><span>Pension Stat</span></a>
                 <a href="https://upbocw.in/Dynamic/PublicUser/LabourEstbDetail.aspx" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-helmet-safety"></i><span>Labour Status</span></a>
-                <a href="https://cscsafar.in/" target="_blank" class="util-dock-node"><i class="fa-solid fa-ticket"></i><span>Ticket Booking</span></a>
-                <a href="https://webservices.bajajallianz.com/CSC/login.jsp" target="_blank" class="util-dock-node"><i class="fa-solid fa-shield-halved"></i><span>Insurance</span></a>
+                
+                <a href="https://passportsindia.gov.in/AppOnlineProject/statusTracker/trackStatusInpNew" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-passport"></i><span>Passport Stat</span></a>
+                <a href="https://scholarship.up.gov.in/" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-graduation-cap"></i><span>Scholarship Stat</span></a>
+                <a href="https://eshram.gov.in/" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-id-badge"></i><span>E-Shram Stat</span></a>
+                <a href="https://passbook.epfindia.gov.in/MemberPassBook/Login" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-piggy-bank"></i><span>EPF Status</span></a>
+                <a href="https://ewallet.uppcl.org/login" target="_blank" class="util-dock-node status-alert"><i class="fa-solid fa-bolt"></i><span>Bill Status</span></a>
             </div>
         </header>
 
         <aside class="left-dock" id="nodeDock"></aside>
 
-        <!-- RIGHT SIDEBAR: MEGA MENU SCROLL LAYER -->
         <aside class="right-sidebar">
             <ul class="nav-tree">
                 <li class="nav-item">
@@ -370,9 +396,11 @@
                     </div>
                     <ul class="sub-deck">
                         <li><a href="#" target="_blank">Shadi Anudan Yojana</a></li>
-                        <li><a href="#" target="_blank">Shishu Hitlabh Yojana</a></li>
-                        <li><a href="#" target="_blank">Kanya Sumangala Node</a></li>
-                        <li><a href="#" target="_blank">OBC/SC Scholarship</a></li>
+                        <li><a href="https://bor.up.nic.in/" target="_blank">(राजस्व विभाग) Revenue Desk </a></li>
+                        <li><a href="https://bor.up.nic.in/krishakaccidentscheme" target="_blank"> मुख्यमंत्री कृषक दुर्घटना कल्याण योजना ₹5 लाख  </a></li>
+                        <li><a href="https://miuponline.in/" target="_blank">यूपी निःशुल्क बोरिंग योजना</a></li>
+                        <li><a href="https://upagriculture.com/" target="_blank">कृषि यंत्र सब्सिडी आवेदन (Farm Machinery Subsidy)</a></li>
+                        <li><a href="https://mnre.gov.in/" target="_blank">सोलर पंप योजना (PM-KUSUM Scheme)</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -380,10 +408,12 @@
                         <div><i class="fa-solid fa-building-columns menu-main-icon"></i>Banking Points</div><i class="fa-solid fa-angle-down"></i>
                     </div>
                     <ul class="sub-deck">
-                        <li><a href="#" target="_blank">IPPB Account Opening</a></li>
-                        <li><a href="#" target="_blank">Axis Bank Portal</a></li>
-                        <li><a href="#" target="_blank">AEPS Cash Withdrawal</a></li>
-                        <li><a href="#" target="_blank">Mini Statement Link</a></li>
+                        <li><a href="https://cscaxiskbs.in/" target="_blank">Axis Bank Portal</a></li>
+                        <li><a href="https://agent2.paycsc.in/" target="_blank">AEPS Cash Withdrawal</a></li>
+                        <li><a href="https://csc.finduit.in/" target="_blank">All Bank Statement</a></li>
+                        <li><a href="https://cscloanbazar.in/" target="_blank">Loan Bazzar</a></li>
+                        <li><a href="https://www.npci.org.in/" target="_blank">DBT/NPCI Link</a></li>
+                        <li><a href="https://pfms.nic.in/" target="_blank">सरकारी पैसा चेक करें (PFMS)</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -391,11 +421,10 @@
                         <div><i class="fa-solid fa-scroll menu-main-icon"></i>Revenue Desk</div><i class="fa-solid fa-angle-down"></i>
                     </div>
                     <ul class="sub-deck">
-                        <li><a href="https://bhulekh.up.gov.in/" target="_blank">Bhulekh Main Engine</a></li>
-                        <li><a href="#" target="_blank">Borbaat / Mutation Link</a></li>
-                        <li><a href="#" target="_blank">Income Certificate (Aay)</a></li>
-                        <li><a href="#" target="_blank">Caste Certificate (Jati)</a></li>
-                        <li><a href="#" target="_blank">Domicile Form (Niwas)</a></li>
+                        <li><a href="https://edistrict.up.gov.in/" target="_blank">Income / Caste / Domicile Certificate</a></li>
+                        <li><a href="https://bor.up.nic.in/" target="_blank">Revenue Desk (राजस्व विभाग)</a></li>
+                        <li><a href="https://upfr.agristack.gov.in/#" target="_blank">किसान रजिस्ट्री (Farmer Registry)</a></li>
+                        <li><a href="https://agridarshan.up.gov.in/" target="_blank">किसान पंजीकरण (Kisan Panjiyan / PM-Kisan)</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -426,58 +455,51 @@
                 <div class="engine-indicator">Hyperlink Action Nodes</div>
                 
                 <div class="services-fluid-grid" id="gridStream">
-                    <!-- CARD 1: AADHAAR (Pure Icon & Text Floating Style) -->
-                    <div class="cyber-premium-card" data-tag="aadhaar uidai card update uid download" onclick="openServiceBox('Aadhaar System (UIDAI)', 'fa-fingerprint', 'https://myaadhaar.uidai.gov.in/', '#', '#', 'https://myaadhaar.uidai.gov.in/genricDownloadAadhaar', '#')">
+                    <div class="cyber-premium-card" data-tag="aadhaar uidai card update uid download" onclick="openServiceBox('aadhaar', 'fa-fingerprint')">
                         <div class="card-icon-sphere"><i class="fa-solid fa-fingerprint"></i></div>
                         <h4>Aadhaar Hub</h4><div class="card-badge">UIDAI Service</div>
                     </div>
-                    <!-- CARD 2: PAN CARD -->
-                    <div class="cyber-premium-card" data-tag="pan card apply protean nsdl status nsdl" onclick="openServiceBox('Protean PAN System', 'fa-address-card', 'https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html', '#', '#', '#', '#')">
+                    <div class="cyber-premium-card" data-tag="pan card apply protean nsdl status nsdl" onclick="openServiceBox('pan', 'fa-address-card')">
                         <div class="card-icon-sphere"><i class="fa-solid fa-address-card"></i></div>
                         <h4>PAN Card Desk</h4><div class="card-badge">Protean / NSDL</div>
                     </div>
-                    <!-- CARD 3: DRIVING LICENSE -->
-                    <div class="cyber-premium-card" data-tag="dl driving license sarathi parivahan rto" onclick="openServiceBox('Driving License (RTO)', 'fa-id-card-clip', '#', '#', '#', '#', '#')">
+                    <div class="cyber-premium-card" data-tag="dl driving license sarathi parivahan rto" onclick="openServiceBox('dl', 'fa-id-card-clip')">
                         <div class="card-icon-sphere"><i class="fa-solid fa-id-card-clip"></i></div>
                         <h4>Driving License (DL)</h4><div class="card-badge">Sarathi Parivahan</div>
                     </div>
-                    <!-- CARD 4: AYUSHMAN CARD -->
-                    <div class="cyber-premium-card" data-tag="ayushman bharat health card pmjay bis" onclick="openServiceBox('Ayushman Bharat Card', 'fa-heart-pulse', '#', '#', '#', '#', '#')">
+                    <div class="cyber-premium-card" data-tag="ayushman bharat health card pmjay bis" onclick="openServiceBox('ayushman', 'fa-heart-pulse')">
                         <div class="card-icon-sphere"><i class="fa-solid fa-heart-pulse"></i></div>
                         <h4>Ayushman Health</h4><div class="card-badge">PM-JAY Console</div>
                     </div>
-                    <!-- CARD 5: VOTER ID -->
-                    <div class="cyber-premium-card" data-tag="voter id card nvsp election commission epic" onclick="openServiceBox('Voter ID System', 'fa-check-to-slot', '#', '#', '#', '#', '#')">
+                    <div class="cyber-premium-card" data-tag="voter id card nvsp election commission epic" onclick="openServiceBox('voter', 'fa-check-to-slot')">
                         <div class="card-icon-sphere"><i class="fa-solid fa-check-to-slot"></i></div>
                         <h4>Voter ID (NVSP)</h4><div class="card-badge">ECI Node</div>
                     </div>
-                    <!-- CARD 6: RATION CARD -->
-                    <div class="cyber-premium-card" data-tag="ration card rasan fcs up supply quota" onclick="openServiceBox('Ration Card System', 'fa-wheat-awn', '#', '#', '#', '#', '#')">
+                    <div class="cyber-premium-card" data-tag="ration card rasan fcs up supply quota" onclick="openServiceBox('ration', 'fa-wheat-awn')">
                         <div class="card-icon-sphere"><i class="fa-solid fa-wheat-awn"></i></div>
                         <h4>Ration Card Node</h4><div class="card-badge">FCS Department</div>
                     </div>
-                    <!-- CARD 7: PM KISAN -->
-                    <div class="cyber-premium-card" data-tag="pm kisan samman nidhi farmer sammannidhi" onclick="openServiceBox('PM Kisan Nidhi', 'fa-tractor', '#', '#', '#', '#', '#')">
-                        <div class="card-icon-sphere"><i class="fa-solid fa-tractor"></i></div>
+                    <div class="cyber-premium-card" data-tag="pm kisan samman nidhi farmer sammannidhi" onclick="openServiceBox('pmkisan', 'fa-hand-holding-seedling')">
+                        <div class="card-icon-sphere"><i class="fas fa-hand-holding-seedling"></i></div>
                         <h4>PM Kisan Samman</h4><div class="card-badge">Agriculture Desk</div>
                     </div>
-                    <!-- CARD 8: PENSION SCHEMES -->
-                    <div class="cyber-premium-card" data-tag="pension old age widow disabled vridha viklang" onclick="openServiceBox('Social Pension Portal', 'fa-users-rays', '#', '#', '#', '#', '#')">
+                    <div class="cyber-premium-card" data-tag="kisan panjikaran farmer registration agriculture agridarshan beej booking yantra booking pm kisan" onclick="openServiceBox('kisanpanjikaran', 'fa-tractor')">
+                        <div class="card-icon-sphere"><i class="fa-solid fa-tractor"></i></div>
+                        <h4>Kisan Panjikaran</h4><div class="card-badge">Farmer Registration</div>
+                    </div>
+                    <div class="cyber-premium-card" data-tag="pension old age widow disabled vridha viklang" onclick="openServiceBox('pension', 'fa-users-rays')">
                         <div class="card-icon-sphere"><i class="fa-solid fa-users-rays"></i></div>
                         <h4>Pension Systems</h4><div class="card-badge">SSP Department</div>
                     </div>
-                    <!-- CARD 9: LABOUR CARD -->
-                    <div class="cyber-premium-card" data-tag="labour card shramik bocw majdur" onclick="openServiceBox('Labour Card (BOCW)', 'fa-helmet-safety', '#', '#', '#', '#', '#')">
+                    <div class="cyber-premium-card" data-tag="labour card shramik bocw majdur" onclick="openServiceBox('labour', 'fa-helmet-safety')">
                         <div class="card-icon-sphere"><i class="fa-solid fa-helmet-safety"></i></div>
                         <h4>Labour Card Desk</h4><div class="card-badge">UP BOCW Node</div>
                     </div>
-                    <!-- CARD 10: E-SHRAM CARD -->
-                    <div class="cyber-premium-card" data-tag="e-shram eshram card national database unorganized" onclick="openServiceBox('National E-Shram System', 'fa-sheet-plastic', '#', '#', '#', '#', '#')">
+                    <div class="cyber-premium-card" data-tag="e-shram eshram card national database unorganized" onclick="openServiceBox('eshram', 'fa-sheet-plastic')">
                         <div class="card-icon-sphere"><i class="fa-solid fa-sheet-plastic"></i></div>
                         <h4>E-Shram Card Hub</h4><div class="card-badge">NDUW Ministry</div>
                     </div>
-                    <!-- CARD 11: VARASAT -->
-                    <div class="cyber-premium-card" data-tag="varasat virasat e-dharti inam revenue land transfer" onclick="openServiceBox('Varasat / Revenue System', 'fa-gavel', '#', '#', '#', '#', '#')">
+                    <div class="cyber-premium-card" data-tag="varasat virasat e-dharti inam revenue land transfer" onclick="openServiceBox('varasat', 'fa-gavel')">
                         <div class="card-icon-sphere"><i class="fa-solid fa-gavel"></i></div>
                         <h4>Varasat Engine</h4><div class="card-badge">Revenue Court</div>
                     </div>
@@ -488,16 +510,14 @@
         </div>
     </div>
 
-    <!-- SMART WHATSAPP DISK AUTOMATION -->
     <a href="https://wa.me/918077330917?text=Namaskar%20Sushil%20Bhaiya,%20mujhe%20digital%20services%20ke%20liye%20help%20chahiye." 
        class="whatsapp-cyber-float" target="_blank" id="whatsappBtn">
         <svg viewBox="0 0 32 32">
-            <path d="M16 2a14 14 0 0 0-12.1 21L2 29l6.3-1.6A14 14 0 1 0 16 2zm7.5 20.2c-.3.9-1.7 1.7-2.4 1.8-.7.1-1.5.2-4.6-1-3.2-1.3-5.3-4.6-5.5-4.8-.2-.2-1.5-2-1.5-3.9 0-1.9 1-2.8 1.4-3.2.3-.3.8-.5 1.2-.5h.4c.3 0 .6 0 .9.7.3.8 1.1 2.6 1.2 2.8.1.2.1.4 0 .6-.1.3-.3.5-.5.7-.2.2-.4.5-.6.7-.2.2-.4.4-.2.8.3.4 1.1 1.9 2.4 3.1 1.6 1.4 3-1.9 3.4-1.7.4.2 2.4 1.1 2.8 1.3.4.2.7.3.8.5.1.3.1 1.7-.3 2.6z"/>
+            <path d="M16 2a14 14 0 0 0-12.1 21L2 29l6.3-1.6A14 14 0 1 0 16 2zm7.5 20.2c-.3.9-1.7 1.7-2.4 1.8-.7.1-1.5.2-4.6-1-3.2-1.3-5.3-4.6-5.5-4.8-.2-.2-1.5-2-1.5-3.9 0-1.9 1-2.8 1.4-3.2.3-.3.8-.5 1.2-.5h.4c.3 0 .6 0 .9.7.3.8 1.1 2.6 1.2 2.8.1.2.1.4 0 .6-.1.3-.3.5-.5.7-.2.2-.4.4-.2.8.3.4 1.1 1.9 2.4 3.1 1.6 1.4 3-1.9 3.4-1.7.4.2 2.4 1.1 2.8 1.3.4.2.7.3.8.5.1.3.1 1.7-.3 2.6z"/>
         </svg>
         <span>WhatsApp Help</span>
     </a>
 
-    <!-- CENTRAL 5-WAY POPUP MODAL -->
     <div class="modal-overlay" id="actionModal" onclick="closeServiceBox(event)">
         <div class="modal-container">
             <div class="modal-close-trigger" onclick="forceCloseBox()"><i class="fa-solid fa-xmark"></i></div>
@@ -505,34 +525,187 @@
                 <i id="modalIcon" class="fa-solid fa-circle-dot"></i>
                 <h3 id="modalTitle">Console Panel</h3>
             </div>
-            <div class="modal-grid-actions">
-                <a href="#" id="lnkNew" target="_blank" class="modal-action-btn"><i class="fa-solid fa-plus-circle"></i><span>New</span><small>Naya Apply</small></a>
-                <a href="#" id="lnkCorr" target="_blank" class="modal-action-btn"><i class="fa-solid fa-wrench"></i><span>Correction</span><small>Sudaar Karein</small></a>
-                <a href="#" id="lnkStat" target="_blank" class="modal-action-btn"><i class="fa-solid fa-magnifying-glass-chart"></i><span>Status</span><small>Check Status</small></a>
-                <a href="#" id="lnkPrnt" target="_blank" class="modal-action-btn"><i class="fa-solid fa-print"></i><span>Download / Print</span><small>Nikalan / Print</small></a>
-                <a href="#" id="lnkKnow" target="_blank" class="modal-action-btn full-span-node"><i class="fa-solid fa-address-book"></i><span>Know Your Registration No.</span><small>Registration Number Khonjein</small></a>
-            </div>
+            <div class="modal-grid-actions" id="modalButtonsArea"></div>
         </div>
     </div>
 
     <script>
+        // MASTER DYNAMIC DATA OBJECT: Isme aap jab chahe options badha ya ghata sakte hain.
+        const servicesData = {
+            aadhaar: {
+                title: "Aadhaar System (UIDAI)",
+                options: [
+                
+                    { name: "Aadhaar Update", sub: "Online Demographics Update", link: "https://myaadhaar.uidai.gov.in/", icon: "fa-wrench", fullSpan: true },
+                    { name: "Aadhaar Update Status Check", sub: "Enrolment / Update Status", link: "https://myaadhaar.uidai.gov.in/CheckAadhaarStatus/en", icon: "fa-magnifying-glass-chart" },
+                    { name: "Document Update (POI/POA)", sub: "Update Identity & Address Proof", link: "https://myaadhaar.uidai.gov.in/du/en_IN", icon: "fa-file-circle-check" },
+                    { name: "Verify Mobile Number / Email", sub: "Check Registered Contact Details", link: "https://myaadhaar.uidai.gov.in/check-aadhaar-validity/en", icon: "fa-mobile-screen-button" },
+                    { name: "Biometric Lock / Unlock", sub: "Secure Aadhaar Biometrics", link: "https://myaadhaar.uidai.gov.in/lock-unlock-aadhaar/en", icon: "fa-fingerprint" },
+                    { name: "Complaint Register / Check Status", sub: "UIDAI Grievance Services", link: "https://myaadhaar.uidai.gov.in/grievance-feedback/en", icon: "fa-circle-exclamation" },
+                    { name: "Aadhaar Download (e-Aadhaar)", sub: "Get E-Aadhaar PDF", link: "https://myaadhaar.uidai.gov.in/genricDownloadAadhaar/en", icon: "fa-print" },
+                    { name: "Retrieve Lost UID/EID", sub: "Retrieve EID / UID Desk", link: "https://myaadhaar.uidai.gov.in/retrieve-eid-uid/en", icon: "fa-address-book", fullSpan: true },
+                ]
+            },
+
+            pan: {
+                title: "Protean PAN System (NSDL)",
+                options: [
+                    
+                    { name: "NSDL PAN CSC", sub: "Form 49A Registration", link: "https://egovcsc.csccloud.in/nsdl/", icon: "fa-plus-circle" },
+                    { name: "UTI PAN CSC", sub: "New PAN & Correction Services", link: "https://www.myutiitsl.com/", icon: "fa-address-card" },
+                    { name: "Download Pan Card", sub: "Get E-Pan Card PDF", link: "#", icon: "fa-print" },
+                    { name: "Reprint Pan Card", sub: "PReprint Pan PDF", link: "https://onlineservices.proteantech.in/paam/ReprintEPan.html", icon: "fa-print" },
+                    { name: "Track PAN Status", sub: "Check Acknowledgment No.", link: "https://tin.tin.proteantech.in/pantan/StatusTrack.html", icon: "fa-magnifying-glass-chart"},
+                    { name: "Find Lost Pan Card No.", sub: "Retrieve Pan Desk", link: "https://eportal.incometax.gov.in/iec/foservices/#/pre-login/instant-e-pan", icon: "fa-address-book"},
+                    { name: "Income Tax eFiling", sub: "Official ITR & PAN Services Portal", link: "https://www.incometax.gov.in/", icon: "fa-file-invoice-dollar", fullSpan: true },
+                    { name: "NSDL Official Website", sub: "Protean PAN Card Services Portal", link: "https://tinpan.proteantech.in/", icon: "fa-id-card"},
+                    { name: "UTI PAN Services", sub: "UTIITSL PAN Card Official Portal", link: "https://www.pan.utiitsl.com/", icon: "fa-address-card" },
+                ]
+            },
+            dl: {
+                title: "Driving License (Sarathi Parivahan)",
+                options: [
+                    { name: "New License Apply", sub: "Learner & Permanent Form", link: "https://www.csctransport.in/", icon: "fa-plus-circle" },
+                    { name: "DL Correction", sub: "Address / Details Change", link: "https://sarathi.parivahan.gov.in/", icon: "fa-wrench" },
+                    { name: "Book My HSRP", sub: "HSRP Plate Booking & Tracking", link: "https://www.bookmyhsrp.com/", icon: "fa-car-rear"},
+                    { name: "DL Mobile Number Correction", sub: "Track Application Journey", link: "https://sarathi.parivahan.gov.in/sarathiservice/mobNumUpdpub.do", icon: "fa-mobile-screen" },
+                    { name: "Rc Mobile Correction", sub: "Download Certificate PDF", link: "https://vahan.parivahan.gov.in/mobileupdate/", icon: "fa-mobile-screen-button" },
+                    { name: "e-Challan Payment", sub: "Check & Pay Traffic Challan", link: "https://echallan.parivahan.gov.in/index/accused-challan", icon: "fa-receipt" },
+                    { name: "Know Your Vehicle Details", sub: "Search Vehicle Registration Details", link: "https://vahan.parivahan.gov.in/nrservices/faces/user/citizen/citizenlogin.xhtml", icon: "fa-car" },
+                    { name: "Know Your Licence Details", sub: "Search Driving Licence Information", link: "https://parivahan.gov.in/rcdlstatus/?pur_cd=101", icon: "fa-id-card" },
+                    { name: "Parivahan Vehicle Services", sub: "RC, Tax, Permit & Vehicle Services", link: "https://parivahan.gov.in/en/content/vehicle-related-services", icon: "fa-car-side", fullSpan: true },
+                ]
+            },
+            ayushman: {
+                title: "Ayushman Bharat PM-JAY",
+                options: [
+                    { name: "Ayushman Card", sub: "Apply & Download PM-JAY Card", link: "https://beneficiary.nha.gov.in/", icon: "fa-heart-pulse" },
+                    { name: "ABHA Card", sub: "Create Ayushman Health Account", link: "https://abha.abdm.gov.in/", icon: "fa-id-card-clip" },
+                    { name: "Complaint Service", sub: "Register & Track Health Complaints", link: "https://grievance.abdm.gov.in/", icon: "fa-circle-exclamation" },
+                    { name: "National Health Authority", sub: "Official NHA Health Portal", link: "https://nha.gov.in/", icon: "fa-building-shield" },
+                ]
+            },
+            voter: {
+                title: "Voter ID System (NVSP Portal)",
+                options: [
+                    { name: "Voter Portal Signup", sub: "Create New Voter Service Account", link: "https://voters.eci.gov.in/signup", icon: "fa-user-check", fullSpan: true },
+                    { name: "Voter ID New & Correction", sub: "Fresh Registration Apply", link: "https://voters.eci.gov.in/", icon: "fa-plus-circle" },
+                    { name: "Download Electoral Roll", sub: "Download PDF Voter List", link: "https://voters.eci.gov.in/download-eroll", icon: "fa-download" },
+                    { name: "Search Your Name in Last SIR", sub: "Find Name in Latest Electoral Roll", link: "https://voters.eci.gov.in/", icon: "fa-magnifying-glass" },
+                    { name: "Search Your Name in E-Roll", sub: "Check Name in Electoral Roll", link: "https://electoralsearch.eci.gov.in/", icon: "fa-list-check" },
+                ]
+            },
+            ration: {
+                title: "Ration Card System (FCS UP)",
+                options: [
+                    { name: "New & Correction Ration Card", sub: "Apply New / Update Ration Details", link: "https://edistrict.up.gov.in/edistrict/login/login.aspx?Xpr$lgnp=y9RBuCEML0mmuocMr032+/nkHNxBD6qT", icon: "fa-clipboard-list", fullSpan: true },
+                    { name: "UP Food & Civil Supplies", sub: "Ration Khadya Evam Rasad Vibhag Portal", link: "https://fcs.up.gov.in/", icon: "fa-wheat-awn-circle-exclamation" },
+                    { name: "Kisan Kharid Registration", sub: "Kharid Hetu Farmer Registration", link: "https://eproc.up.gov.in/paddy2324/Uparjan/FarmerRegLogin.aspx", icon: "fa-wheat-awn-circle-exclamation" },
+                    { name: "Ration Card Complaint", sub: "Rashan Card Sambandhi Shikayat", link: "https://cms.up.gov.in/jsk/User/Default.aspx", icon: "fa-file-circle-exclamation", fullSpan: true },
+                ]
+            },
+            pmkisan: {
+                title: "PM Kisan Samman Nidhi",
+                options: [
+                    { name: "PM Kisan New Registration", sub: "Apply New Farmer Registration", link: "https://pmkisan.gov.in/RegistrationFormupdated.aspx", icon: "fa-user-plus" },
+                    { name: "PM Kisan Correction", sub: "Edit Farmer Registration Details", link: "https://pmkisan.gov.in/SearchSelfRegisterfarmerDetailsnewUpdated.aspx", icon: "fa-file-pen" },
+                    { name: "PM Kisan Status", sub: "Check Beneficiary Application Status", link: "https://pmkisan.gov.in/FarmerStatus.aspx", icon: "fa-magnifying-glass-chart", fullSpan: true },
+                    { name: "PM Kisan eKYC", sub: "Complete Aadhaar eKYC Verification", link: "https://exlink.pmkisan.gov.in/", icon: "fa-fingerprint" },                    
+                    { name: "Update Missing Details", sub: "Complete Incomplete Farmer Data", link: "https://pmkisan.gov.in/SearchBeneficiaryInformationUpdate.aspx", icon: "fa-circle-info" },
+                    { name: "Know Your Registration Number", sub: "Find PM Kisan Registration ID", link: "https://pmkisan.gov.in/KnowYour_Registration.aspx", icon: "fa-id-card" },
+                    { name: "PM Kisan Mobile Update", sub: "Change Registered Mobile Number", link: "https://pmkisan.gov.in/MobileUpdation_Pub.aspx", icon: "fa-mobile-screen-button" },
+                    { name: "Check Farmer Status", sub: "Beneficiary Installment Status", link: "https://pmkisan.gov.in/BeneficiaryStatus_New.aspx", icon: "fa-magnifying-glass-chart", fullSpan: true },
+                ]
+            
+            },
+
+            kisanpanjikaran: {
+                title: "Kisan Agriculture Services",
+                options: [
+                    { name: "Kisan Panjikaran", sub: "Farmer Registration Portal", link: "https://upfr.agristack.gov.in/", icon: "fa-user-plus" },
+                    { name: "Agridarshan Login", sub: "Agriculture Department Dashboard", link: "https://agriculture.up.gov.in/", icon: "fa-seedling" },
+                    { name: "Aadhaar Satyapan", sub: "Farmer Aadhaar Verification", link: "https://upfr.agristack.gov.in/farmer-registry-up/#/home", icon: "fa-id-card" },
+                    { name: "Know Your Reg Number", sub: "Find Farmer Registration Number", link: "https://upfr.agristack.gov.in/farmer-registry-up/#/home", icon: "fa-magnifying-glass" },
+                    { name: "Know Your Reg Agridarshan", sub: "Search Agriculture Registration Details", link: "https://agriculture.up.gov.in/", icon: "fa-address-card" },
+                    { name: "Beej Booking", sub: "Seed Booking & Distribution", link: "https://agriculture.up.gov.in/", icon: "fa-wheat-awn" },
+                    { name: "Yantra Booking", sub: "Agriculture Machine Booking", link: "https://agriculture.up.gov.in/", icon: "fa-tractor" },
+                ]
+            
+            },
+
+            pension: {
+                title: "Social Pension Portal (SSPY)",
+                options: [
+                    { name: "Vridha Pension Apply", sub: "Old Age Scheme Request", link: "https://sspy-up.gov.in/HindiPages/oldage_h.aspx", icon: "fa-plus-circle" },
+                    { name: "Nirashrit Mahila Apply", sub: "Widow Pension Submission", link: "https://sspy-up.gov.in/HindiPages/widow_h.aspx", icon: "fa-plus-circle" },
+                    { name: "Divyang Pension Apply", sub: "Disabled Welfare Request", link: "https://sspy-up.gov.in/HindiPages/handicap_h.aspx", icon: "fa-plus-circle" },                    
+                    { name: "Mobile Number Update", sub: "Update Registered Mobile", link: "https://sspy-up.gov.in/oap/public_new/UserLogin.aspx"},
+                    { name: "Know Your Mobile Number", sub: "Check Registered Mobile Details", link: "https://sspy-up.gov.in/oap/public_new/UserForgetMobile.aspx", icon: "fa-sim-card"},
+                    { name: "eKYC Service", sub: "Complete Aadhaar eKYC Verification", link: "https://sspy-up.gov.in/oap/public_new/UserLogin.aspx", icon: "fa-fingerprint",},
+                    { name: "Check Pension Status", sub: "Track Application Approval", link: "https://sspy-up.gov.in/oap/public_new/UserLogin.aspx", icon: "fa-magnifying-glass-chart", fullSpan: true },
+                ]
+            },
+            labour: {
+                title: "Labour Card (BOCW Portal)",
+                options: [
+                    { name: "Labour Card Apply", sub: "UPBOCW Shramik Registration", link: "https://upbocw.in/", icon: "fa-id-card" },
+                    { name: "CSC Labour Card", sub: "Shramik Card via CSC Center", link: "https://www.uplmis.in/", icon: "fa-building-user" },                
+                    { name: "Labour Card Status", sub: "Check Registration Status", link: "https://www.upbocw.in/Dynamic/PublicUser/LabourEstbDetail.aspx", icon: "fa-magnifying-glass"},
+                    { name: "Shramik Certificate", sub: "Download Labour Certificate", link: "https://www.upbocw.in/Dynamic/PublicUser/GetLabourCertificate.aspx?Tab=1", icon: "fa-certificate"},
+                    { name: "Labour Card Renewal", sub: "Renew Existing Shramik Card", link: "https://uplmis.in/Guest/LabourEstbDetail.aspx", icon: "fa-rotate-right" },                   
+                    { name: "Renewal Status", sub: "Check Renewal Application", link: "https://uplmis.in/Guest/LabourEstbDetail.aspx", icon: "fa-clock-rotate-left" },                   
+                    { name: "Yojna Aawedan", sub: "Apply Labour Welfare Schemes", link: "https://uplmis.in/Guest/frm_CreateLogin.aspx", icon: "fa-file-signature" },
+                    { name: "Yojna Aawedan Status", sub: "Track Scheme Application", link: "https://www.upbocw.in/Dynamic/PublicUser/SearchLabourProfile.aspx?Tab=4", icon: "fa-chart-line" },
+                    { name: "Find Labour Card", sub: "Search Registered Shramik", link: "https://www.upbocw.in/Dynamic/PublicUser/KnowYourReg.aspx", icon: "fa-search", fullSpan: true },
+                ]
+            },
+            eshram: {
+                title: "National E-Shram Portal",
+                options: [
+                    { name: "Register New Card", sub: "Self NDUW Registration", link: "https://register.eshram.gov.in/#/user/self", icon: "fa-plus-circle" },
+                    { name: "Update Profile", sub: "Data Update / Correction", link: "https://register.eshram.gov.in/#/user/self", icon: "fa-wrench" },
+                    { name: "Download UAN Card", sub: "Print E-Shram PDF Document", link: "https://register.eshram.gov.in/#/user/self", icon: "fa-print", fullSpan: true }
+                ]
+            },
+            varasat: {
+                title: "Varasat Court Engine",
+                options: [
+                    { name: "Apply Varasat Online", sub: "Uttaradhikar (उत्तराधिकार) Form", link: "https://vaad.up.nic.in/", icon: "fa-plus-circle" },
+                    { name: "Track Case Status", sub: "Revenue Court Status Check", link: "https://vaad.up.nic.in/", icon: "fa-magnifying-glass-chart", fullSpan: true }
+                ]
+            }
+        };
+
         const modal = document.getElementById('actionModal');
         const mTitle = document.getElementById('modalTitle');
         const mIcon = document.getElementById('modalIcon');
-        
-        const lnkNew = document.getElementById('lnkNew');
-        const lnkCorr = document.getElementById('lnkCorr');
-        const lnkStat = document.getElementById('lnkStat');
-        const lnkPrnt = document.getElementById('lnkPrnt');
-        const lnkKnow = document.getElementById('lnkKnow');
+        const buttonsArea = document.getElementById('modalButtonsArea');
 
-        function openServiceBox(title, icon, urlNew, urlCorr, urlStat, urlPrnt, urlKnow) {
-            mTitle.innerText = title;
+        // Dynamic Engine Handler
+        function openServiceBox(serviceKey, icon) {
+            const data = servicesData[serviceKey];
+            if(!data) return;
+
+            mTitle.innerText = data.title;
             mIcon.className = `fa-solid ${icon}`;
-            lnkNew.href = urlNew || "#"; lnkCorr.href = urlCorr || "#";
-            lnkStat.href = urlStat || "#"; lnkPrnt.href = urlPrnt || "#"; lnkKnow.href = urlKnow || "#";
+            
+            // Core logic to render customized unique option elements
+            buttonsArea.innerHTML = "";
+            data.options.forEach(opt => {
+                const buttonClass = opt.fullSpan ? "modal-action-btn full-span-node" : "modal-action-btn";
+                const btnHTML = `
+                    <a href="${opt.link}" target="_blank" class="${buttonClass}">
+                        <i class="fa-solid ${opt.icon || 'fa-circle-dot'}"></i>
+                        <span>${opt.name}</span>
+                        <small>${opt.sub}</small>
+                    </a>
+                `;
+                buttonsArea.innerHTML += btnHTML;
+            });
+
             modal.classList.add('open');
         }
+
         function forceCloseBox() { modal.classList.remove('open'); }
         function closeServiceBox(e) { if(e.target === modal) modal.classList.remove('open'); }
 
@@ -557,17 +730,35 @@
             }
         }
 
-        const structuralNodes = ["PAN", "Aadhaar", "DL", "Ration", "Welfare"];
+        // ACTIVATED LEFT ICONS DATA OBJECTS WITH CORE SYSTEM PORTAL LINKS
+        const structuralNodes = [
+            { name: "PAN", url: "https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html" },
+            { name: "Aadhaar", url: "https://myaadhaar.uidai.gov.in/" },
+            { name: "DL", url: "https://sarathi.parivahan.gov.in/" },
+            { name: "Ration", url: "https://nfsa.up.gov.in/Food/TrackingRationCard/NFSARCSearch.aspx" },
+            { name: "Welfare", url: "https://sspy-up.gov.in/" }
+        ];
+        
         const nodeContainer = document.getElementById('nodeDock');
         const typeIcon = { "pan": "fa-id-card", "aadhaar": "fa-fingerprint", "dl": "fa-id-card-clip", "ration": "fa-wheat-awn", "welfare": "fa-wallet" };
+        
         structuralNodes.forEach(node => {
-            const block = document.createElement('div');
+            const block = document.createElement('a');
             block.className = 'dock-node';
-            block.innerHTML = `<i class="fa-solid ${typeIcon[node.toLowerCase()] || "fa-bolt"}"></i><span>${node}</span>`;
+            block.href = node.url;
+            block.target = '_blank';
+            block.innerHTML = `<i class="fa-solid ${typeIcon[node.name.toLowerCase()] || "fa-bolt"}"></i><span>${node.name}</span>`;
             nodeContainer.appendChild(block);
         });
 
         function toggleSub(trigger) {
+            document.querySelectorAll('.nav-trigger').forEach(t => {
+                if(t !== trigger) {
+                    t.classList.remove('active');
+                    if(t.nextElementSibling) t.nextElementSibling.classList.remove('active');
+                }
+            });
+
             const sub = trigger.nextElementSibling;
             const isActive = sub.classList.contains('active');
             if (isActive) {
@@ -579,7 +770,7 @@
             }
         }
 
-        // --- UPGRADED HIGH-SPEED SMOOTH TYPEWRITER ENGINE ---
+        /* --- TYPEWRITER CONFIGURATION ENGINE --- */
         const liveHeading = document.getElementById("liveSiteHeading");
         const centerBrands = [
             "TEZ SHIVA CYBER SEWA",
@@ -591,42 +782,37 @@
         let currentStringIdx = 0;
         let currentCharIdx = 0;
         let isDeleting = false;
-        let typingSpeed = 70; // High speed rendering
+        let typingSpeed = 70;
 
         function typeEngine() {
             const currentFullText = centerBrands[currentStringIdx];
             
             if (isDeleting) {
-                // Character Removals
                 liveHeading.innerText = currentFullText.substring(0, currentCharIdx - 1);
                 currentCharIdx--;
-                typingSpeed = 30; // Deleting is super fast
+                typingSpeed = 30;
             } else {
-                // Character Additions
                 liveHeading.innerText = currentFullText.substring(0, currentCharIdx + 1);
                 currentCharIdx++;
-                typingSpeed = 70; // Smooth typing stream
+                typingSpeed = 70;
             }
 
-            // Word Complete State
             if (!isDeleting && currentCharIdx === currentFullText.length) {
-                typingSpeed = 2200; // Freeze state on complete name
+                typingSpeed = 2200;
                 isDeleting = true;
             } else if (isDeleting && currentCharIdx === 0) {
                 isDeleting = false;
                 currentStringIdx = (currentStringIdx + 1) % centerBrands.length;
-                typingSpeed = 400; // Small delay before typing next brand name
+                typingSpeed = 400;
             }
 
             setTimeout(typeEngine, typingSpeed);
         }
         
-        // Boot Typewriter after DOM loads
         document.addEventListener("DOMContentLoaded", () => {
             setTimeout(typeEngine, 800);
         });
 
-        // --- AUTOMATION AUTOHIDE WHATSAPP TRACKER ---
         const waNode = document.getElementById("whatsappBtn");
         let idleTracker;
         window.addEventListener("scroll", () => {
