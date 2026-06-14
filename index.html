@@ -495,6 +495,20 @@
                         <div class="card-icon-sphere"><i class="fa-solid fa-helmet-safety"></i></div>
                         <h4>Labour Card Desk</h4><div class="card-badge">UP BOCW Node</div>
                     </div>
+                    <!-- Udyog Vibhag (Department of Industries) Card Component -->
+                    <div class="cyber-premium-card" data-tag="udyog vibhag msme mysy cm yuva vishwakarma loan scheme" onclick="openServiceBox('udyog', 'fa-industry')">
+                        <div class="card-icon-sphere"><i class="fa-solid fa-industry"></i></div>
+                        <h4>Industries & MSME Desk</h4>
+                        <div class="card-badge">UP Udyog Vibhag</div>
+                    </div>
+
+                    <!-- Ticket Booking Desk Card Component -->
+                    <div class="cyber-premium-card" data-tag="ticket booking irctc train flight bus upsrtc yatra" onclick="openServiceBox('tickets', 'fa-ticket')">
+                        <div class="card-icon-sphere"><i class="fa-solid fa-ticket"></i></div>
+                        <h4>Travel & Ticket Desk</h4>
+                        <div class="card-badge">IRCTC & Travel Node</div>
+                    </div>
+
                     <div class="cyber-premium-card" data-tag="e-shram eshram card national database unorganized" onclick="openServiceBox('eshram', 'fa-sheet-plastic')">
                         <div class="card-icon-sphere"><i class="fa-solid fa-sheet-plastic"></i></div>
                         <h4>E-Shram Card Hub</h4><div class="card-badge">NDUW Ministry</div>
@@ -585,6 +599,35 @@
                     { name: "National Health Authority", sub: "Official NHA Health Portal", link: "https://nha.gov.in/", icon: "fa-building-shield" },
                 ]
             },
+
+            udyog: {
+                title: "Udyog Vibhag & MSME Services",
+                options: [
+                    { name: "CM Yuva Udyami Yojana", sub: "Mukhyamantri Yuva Loan Scheme", link: "https://msme.up.gov.in/", icon: "fa-user-gear" },
+                    { name: "Vishwakarma Shram Samman", sub: "Free Toolkit & Skill Training Scheme", link: "https://msme.up.gov.in/login/registration_login", icon: "fa-screwdriver-wrench" },
+                    { name: "Track Application Status", sub: "Check UP MSME / CM-YUVA Status", link: "https://msme.up.gov.in/login/registration_login", icon: "fa-chart-line", fullSpan: true },
+                    { name: "Udyam Registration", sub: "New MSME Business Registration", link: "https://www.udyamregistration.gov.in/", icon: "fa-file-invoice" },
+                    { name: "Udyam Correction/Cancel Reg", sub: "Update Existing Registration Details", link: "https://www.udyamregistration.gov.in/Udyam_Login.aspx", icon: "fa-file-pen" },
+                    { name: "Know Your Udyam Number", sub: "Find Forgotten Registration Number", link: "hhttps://www.udyamregistration.gov.in/ForgotRegNo.aspx", icon: "fa-magnifying-glass" },
+                    { name: "Print Udyam Certificate", sub: "Download Official MSME Certificate", link: "https://www.udyamregistration.gov.in/Udyam_Login.aspx", icon: "fa-print" },                    
+                ]
+            },
+
+            tickets: {
+                title: "Travel & Ticket Booking Services",
+                options: [                                       
+                    { name: "Train Schedule & Route", sub: "Check Train Time-Table & Stoppages", link: "https://www.indianrail.gov.in/enquiry/SCHEDULE/TrainSchedule.html?locale=en", icon: "fa-calendar-days", fullSpan: true },
+                    { name: "IRCTC Train Booking(CSC)", sub: "Book Train Tickets via IRCTC Portal", link: "https://cscsafar.in/", icon: "fa-train" }, 
+                    { name: "Check PNR Status", sub: "Track Live Train PNR & Waitlist Status", link: "https://www.indianrail.gov.in/enquiry/PNR/PnrEnquiry.html", icon: "fa-list-check" },
+                    { name: "Train Fare Enquiry", sub: "Check Ticket Price & Class Quotas", link: "https://www.indianrail.gov.in/enquiry/FARE/FareEnquiry.html?locale=en", icon: "fa-money-bill-wave" },
+                    { name: "Track Train Live Status", sub: "Spot Your Train & Running Schedule", link: "https://enquiry.indianrail.gov.in/", icon: "fa-location-dot" },
+                    { name: "Cancel & Refund Status", sub: "Manage Bookings & Check Cancel Refunds", link: "https://www.operations.irctc.co.in/AgentInterface/loginHome.jsf", icon: "fa-money-bill-transfer", fullSpan: true },
+                    { name: "UPSRTC Bus Booking", sub: "Book UP State Road Transport Buses", link: "https://connect.csc.gov.in/account/authorize?response_type=code&client_id=95000000000000000000000000000000000000000000000000000000000000000009b75a3-67f6-4f73-949f-31b074a1fe53&redirect_uri=https://air.cscsafar.in&state=82516", icon: "fa-bus" },
+                    { name: "Flight Ticket Booking", sub: "Compare & Book Domestic/International Flights", link: "https://connect.csc.gov.in/account/authorize?response_type=code&client_id=959b75a3-67f6-4f73-949f-31b074a1fe53&redirect_uri=https://air.cscsafar.in&state=82516", icon: "fa-plane" },                    
+                    
+                ]
+            },
+
             voter: {
                 title: "Voter ID System (NVSP Portal)",
                 options: [
