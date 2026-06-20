@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axis Bank Passbook & PVC Software - Ultimate Watermark Edition</title>
+    <style>
+        :root {
+            --axis-burgundy: #841439;
+            --axis-gold: #c39a5b;
+            --bg-gray: #f8f9fa;
+            --border-color: #dcdcdc;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eff1f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        .main-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 25px;
+        }
+
+        h1 {
+            color: var(--axis-burgundy);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            border-bottom: 4px solid var(--axis-burgundy);
+            padding-bottom: 15px;
+        }
+
+        .form-section {
+            background: var(--bg-gray);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #444;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"], input[type="file"] {
+            padding: 10px;
+            border: 1px solid #b3b3b3;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .btn-wrapper {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            transition: 0.2s;
+        }
+
+        .btn-front-a4 { background-color: var(--axis-burgundy); }
+        .btn-combo-pvc { background-color: #d35400; font-size: 16px; padding: 14px 35px; border-radius: 8px; }
+        .btn:hover { opacity: 0.9; }
+
+        .preview-heading {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+        }
+
+        .preview-heading::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #ccc;
+        }
+
+        .preview-blocks-holder {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+            background: #e4e7eb;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px dashed #999;
+        }
+
+        .passbook-card {
+            background-color: #ffffff;
+            border: 1px solid #222;
+            width: 210mm;
+            height: 142mm; 
+            position: relative;
+            box-sizing: border-box;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        /* ---------------- FRONT SIDE STYLES ---------------- */
+        .pb-header {
+            background-color: #841439 !important;
+            color: #ffffff !important;
+            padding: 0 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 75px;
+        }
+
+        .pb-logo-area {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            width: 55%;
+            background-color: transparent !important;
+        }
+
+        .axis-official-logo {
+            height: 65%;
+            max-height: 50px;
+            object-fit: contain;
+            background: transparent !important;
+            filter: brightness(0) invert(1) !important;
+        }
+
+        .pb-branch-box {
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        .pb-sol-title {
+            font-size: 13px;
+            font-weight: bold;
+            opacity: 0.9;
+        }
+
+        .pb-branch-title {
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .pb-gold-divider {
+            height: 6px;
+            background-color: #c39a5b !important;
+            width: 100%;
+        }
+
+        .pb-sub-banner {
+            text-align: center;
+            color: #841439;
+            font-size: 12px;
+            font-weight: 800;
+            margin-top: 8px;
+            letter-spacing: 0.8px;
+        }
+
+        .pb-main-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            margin: 4px 0 10px 0;
+            color: #000000;
+        }
+
+        .pb-content-grid {
+            display: flex;
+            padding: 0 35px;
+            justify-content: space-between;
+            background-image: radial-gradient(rgba(150, 150, 150, 0.4) 1.2px, transparent 1.2px) !important;
+            background-size: 16px 16px !important;
+            height: calc(100% - 170px); 
+            position: relative;
+        }
+
+        /* DYNAMIC WATERMARK SETUP */
+        .pb-content-grid::before {
+            content: "AXIS BANK";
+            position: absolute;
+            top: 45%;
+            left: 35%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            font-size: 65px;
+            font-weight: 900;
+            color: rgba(132, 20, 57, 0.05); /* Soft premium watermark texture */
+            letter-spacing: 5px;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .pb-left-fields {
+            width: 65%;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding-top: 5px;
+            position: relative;
+            z-index: 2; /* Text ko watermark ke upar laane ke liye */
+        }
+
+        .pb-data-row {
+            display: flex;
+            font-size: 15px;
+            align-items: flex-start;
+            line-height: 1.4;
+        }
+
+        .pb-field-label {
+            width: 165px;
+            font-weight: 700;
+            color: #111;
+            text-shadow: 1px 1px 2px #fff, -1px -1px 2px #fff, 1px -1px 2px #fff, -1px 1px 2px #fff !important;
+        }
+
+        .pb-field-colon {
+            width: 20px;
+            font-weight: 700;
+            color: #841439;
+            text-align: center;
+            text-shadow: 1px 1px 1px #fff !important;
+        }
+
+        .pb-field-value {
+            flex: 1;
+            font-weight: 800;
+            color: #000000;
+            text-transform: uppercase;
+            word-break: break-word;
+            text-shadow: 1px 1px 2px #fff, -1px -1px 2px #fff, 1px -1px 2px #fff, -1px 1px 2px #fff !important;
+        }
+
+        .pb-right-pane {
+            width: 32%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 5px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .photo-wrapper-block {
+            width: 125px;
+            height: 145px;
+            border: 2px solid #000000;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            position: relative;
+            z-index: 5;
+        }
+
+        .pb-photo-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .pb-photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .pb-stamp-overlay {
+            position: absolute;
+            top: 130px; 
+            right: 25px;
+            width: 85px;
+            height: 85px;
+            border: 2px dashed rgba(132, 20, 57, 0.85);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            color: rgba(132, 20, 57, 0.9);
+            text-align: center;
+            font-weight: bold;
+            transform: rotate(-10deg);
+            background: rgba(255, 255, 255, 0.85) !important;
+            z-index: 10; 
+            pointer-events: none;
+        }
+
+        .pb-sign-holder-clean {
+            position: absolute;
+            top: 140px; 
+            right: 5px;
+            width: 120px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: rotate(-8deg); 
+            z-index: 12; 
+            pointer-events: none;
+        }
+
+        .pb-digital-sign-overlay {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .pb-sign-text-container {
+            margin-top: 85px; 
+            text-align: center;
+            z-index: 5;
+        }
+
+        .pb-sign-text-below {
+            font-size: 12px;
+            font-weight: 800;
+            color: #000;
+            border-top: 1px solid #000;
+            width: 120px;
+            padding-top: 2px;
+            text-shadow: 1px 1px 1px #fff !important;
+        }
+
+        .pb-footer {
+            background-color: #841439 !important;
+            color: #ffffff !important;
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 700;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .pb-footer-brand {
+            font-size: 22px !important;
+            font-weight: 900 !important;
+            letter-spacing: 1.5px;
+        }
+
+        /* ---------------- BACK SIDE STYLES ---------------- */
+        .back-content-grid {
+            padding: 25px 35px;
+            height: calc(100% - 55px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #fafafa;
+        }
+
+        .back-title {
+            color: var(--axis-burgundy);
+            font-size: 20px;
+            font-weight: 800;
+            border-bottom: 2px solid var(--axis-gold);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .terms-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .terms-list li {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #222;
+            font-weight: 600;
+            text-align: justify;
+        }
+
+        .terms-list li::before {
+            content: "■ ";
+            color: var(--axis-burgundy);
+            font-size: 11px;
+            margin-right: 5px;
+        }
+
+        .back-bottom-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #ccc;
+            padding-top: 15px;
+        }
+
+        .support-info {
+            font-size: 13px;
+            font-weight: 700;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .support-info span {
+            color: var(--axis-burgundy);
+        }
+
+        .back-qr-code {
+            width: 80px;
+            height: 80px;
+            border: 1px solid #999;
+            padding: 3px;
+            background: white;
+        }
+
+        /* ---------------- HIGH-END PRINT CSS ---------------- */
+        @media print {
+            .no-print-container, .form-section, .btn-wrapper, .preview-heading, h1 {
+                display: none !important;
+            }
+            body { background: #ffffff; padding: 0; margin: 0; }
+            
+            .preview-blocks-holder { background: transparent !important; border: none !important; padding: 0 !important; gap: 20px !important;}
+            body.print-target-front .back-card-element { display: none !important; }
+            body.print-target-combo .passbook-card { display: block !important; margin-bottom: 25px !important; page-break-inside: avoid; }
+
+            .passbook-card { border: none !important; box-shadow: none !important; position: relative !important; }
+
+            body.mode-print-a4 .passbook-card {
+                width: 210mm !important;
+                height: 142mm !important;
+                margin: 0 auto;
+            }
+
+            body.mode-print-pvc .passbook-card {
+                width: 85.6mm !important;
+                height: 54mm !important;
+                margin: 0 auto;
+            }
+            
+            /* PVC SIZE WATERMARK & DOTS CONTROL */
+            body.mode-print-pvc .pb-content-grid { 
+                padding: 0 12px !important; 
+                background-image: radial-gradient(rgba(120, 120, 120, 0.12) 0.6px, transparent 0.6px) !important;
+                background-size: 7px 7px !important; 
+                height: calc(100% - 56px) !important;
+            }
+
+            /* PVC ke scale ke hisab se watermark adjust kiya gaya hai */
+            body.mode-print-pvc .pb-content-grid::before {
+                font-size: 26px !important;
+                letter-spacing: 2px !important;
+                top: 45% !important;
+                left: 36% !important;
+                color: rgba(132, 20, 57, 0.04) !important; /* PVC me watermark aur soft kiya taaki text na dabe */
+            }
+            
+            body.mode-print-pvc .pb-left-fields { width: 68% !important; gap: 1.5px !important; padding-top: 1px !important;}
+            
+            body.mode-print-pvc .pb-data-row { 
+                font-size: 6.5px !important; 
+                line-height: 1.3 !important; 
+            }
+            body.mode-print-pvc .pb-field-label,
+            body.mode-print-pvc .pb-field-value {
+                text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff !important;
+            }
+
+            body.mode-print-pvc .pb-field-label { width: 62px !important; }
+            body.mode-print-pvc .pb-field-colon { width: 6px !important; }
+            
+            body.mode-print-pvc .pb-header { padding: 0 12px !important; height: 30px !important; }
+            body.mode-print-pvc .axis-official-logo { max-height: 24px !important; }
+            body.mode-print-pvc .pb-sol-title { font-size: 6px !important; }
+            body.mode-print-pvc .pb-branch-title { font-size: 10px !important; }
+            body.mode-print-pvc .pb-gold-divider { height: 2px !important; }
+            body.mode-print-pvc .pb-sub-banner { font-size: 4.5px !important; margin-top: 2px !important; }
+            body.mode-print-pvc .pb-main-title { font-size: 12px !important; letter-spacing: 2px !important; margin: 2px 0 5px 0 !important; }
+            
+            body.mode-print-pvc .photo-wrapper-block { width: 44px !important; height: 52px !important; border-width: 1px !important; }
+            body.mode-print-pvc .pb-stamp-overlay { width: 32px !important; height: 32px !important; font-size: 2.5px !important; border-width: 0.5px !important; right: 8px !important; top: 46px !important; }
+            body.mode-print-pvc .pb-sign-holder-clean { width: 45px !important; height: 18px !important; right: 2px !important; top: 50px !important; }
+            body.mode-print-pvc .pb-sign-text-container { margin-top: 30px !important; }
+            body.mode-print-pvc .pb-sign-text-below { font-size: 4.5px !important; width: 42px !important; padding-top: 1px !important; }
+            
+            body.mode-print-pvc .pb-footer { padding: 4px 12px !important; }
+            body.mode-print-pvc .pb-footer div { font-size: 5.5px !important; }
+            body.mode-print-pvc .pb-footer-brand { font-size: 11px !important; letter-spacing: 0.5px !important; }
+
+            body.mode-print-pvc .back-content-grid { padding: 8px 12px !important; height: calc(100% - 14px) !important; }
+            body.mode-print-pvc .back-title { font-size: 9px !important; margin-bottom: 5px !important; padding-bottom: 2px !important; }
+            body.mode-print-pvc .terms-list { gap: 3px !important; }
+            body.mode-print-pvc .terms-list li { font-size: 5px !important; line-height: 1.3 !important; }
+            body.mode-print-pvc .back-bottom-row { padding-top: 4px !important; }
+            body.mode-print-pvc .support-info { font-size: 5px !important; line-height: 1.3 !important; }
+            body.mode-print-pvc .back-qr-code { width: 28px !important; height: 28px !important; padding: 1px !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="no-print-container">
+            <h1>AXIS BANK - Passbook PVC Card Printing Software</h1>
+            
+            <div class="form-section">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Customer Name</label>
+                        <input type="text" id="txt-name" value="PRADUMN SINGH" oninput="updateLivePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Father's Name</label>
+                        <input type="text" id="txt-father" value="HARPAL SINGH" oninput="updateLivePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Account Number</label>
+                        <input type="text" id="txt-acc" value="926010021745212" oninput="updateLivePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Customer ID</label>
+                        <input type="text" id="txt-custid" value="17808100" oninput="updateLivePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>IFSC Code</label>
+                        <input type="text" id="txt-ifsc" value="UTIB0001913" oninput="updateLivePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Account Type</label>
+                        <input type="text" id="txt-type" value="SAVINGS ACCOUNT" oninput="updateLivePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Aadhaar Number</label>
+                        <input type="text" id="txt-aadhar" value="697727954638" oninput="updateLivePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>BC Agent Name</label>
+                        <input type="text" id="txt-bcname" value="SUSHIL KUMAR" oninput="updateLivePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Customer Photo</label>
+                        <input type="file" id="file-photo" accept="image/*" onchange="previewFile(this, 'view-photo')">
+                    </div>
+                    <div class="form-group">
+                        <label>BC Digital Sign (PNG/JPG)</label>
+                        <input type="file" id="file-sign" accept="image/*" onchange="previewFile(this, 'view-digital-sign')">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Customer Address</label>
+                        <input type="text" id="txt-address" value="BAIHARI POST PATHA CHARKHARI MAHOBA U P 210424" oninput="updateLivePreview()">
+                    </div>
+                </div>
+
+                <div class="btn-wrapper">
+                    <button class="btn btn-front-a4" onclick="executeSystemPrint('front', 'a4')">Print Front Side (A4 Size)</button>
+                    <button class="btn btn-combo-pvc" onclick="executeSystemPrint('combo', 'pvc')">Print PVC Combo (Front + Back Ek Page Par)</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-heading">Live Dynamic Preview (Front & Back Sides)</div>
+        
+        <div class="preview-blocks-holder">
+            
+            <div class="passbook-card front-card-element" id="front-card">
+                <div class="pb-header">
+                    <div class="pb-logo-area">
+                        <img class="axis-official-logo" src="https://pngcut.com/wp-content/uploads/2025/09/Axis-Bank-transparent-background-Logo-Vector-HD-Png-1.png" alt="Axis Bank White Logo">
+                    </div>
+                    <div class="pb-branch-box">
+                        <div class="pb-sol-title">SOL ID: 1913 / BRANCH</div>
+                        <div class="pb-branch-title">MAHOBA</div>
+                    </div>
+                </div>
+                
+                <div class="pb-gold-divider"></div>
+                <div class="pb-sub-banner">FI-BUSINESS CORRESPONDENT AGENT BANKING</div>
+                <div class="pb-main-title">PASSBOOK</div>
+
+                <div class="pb-content-grid">
+                    <div class="pb-left-fields">
+                        <div class="pb-data-row">
+                            <div class="pb-field-label">CUSTOMER NAME</div>
+                            <div class="pb-field-colon">:</div>
+                            <div class="pb-field-value" id="view-name">PRADUMN SINGH</div>
+                        </div>
+                        <div class="pb-data-row">
+                            <div class="pb-field-label">FATHER'S NAME</div>
+                            <div class="pb-field-colon">:</div>
+                            <div class="pb-field-value" id="view-father">HARPAL SINGH</div>
+                        </div>
+                        <div class="pb-data-row">
+                            <div class="pb-field-label">ACCOUNT NO</div>
+                            <div class="pb-field-colon">:</div>
+                            <div class="pb-field-value" id="view-acc">926010021745212</div>
+                        </div>
+                        <div class="pb-data-row">
+                            <div class="pb-field-label">CUSTOMER ID</div>
+                            <div class="pb-field-colon">:</div>
+                            <div class="pb-field-value" id="view-custid">17808100</div>
+                        </div>
+                        <div class="pb-data-row">
+                            <div class="pb-field-label">IFSC CODE</div>
+                            <div class="pb-field-colon">:</div>
+                            <div class="pb-field-value" id="view-ifsc">UTIB0001913</div>
+                        </div>
+                        <div class="pb-data-row">
+                            <div class="pb-field-label">A/C TYPE</div>
+                            <div class="pb-field-colon">:</div>
+                            <div class="pb-field-value" id="view-type">SAVINGS ACCOUNT</div>
+                        </div>
+                        <div class="pb-data-row">
+                            <div class="pb-field-label">AADHAAR NO</div>
+                            <div class="pb-field-colon">:</div>
+                            <div class="pb-field-value" id="view-aadhar">[Aadhaar Redacted]</div>
+                        </div>
+                        <div class="pb-data-row">
+                            <div class="pb-field-label">ADDRESS</div>
+                            <div class="pb-field-colon">:</div>
+                            <div class="pb-field-value" id="view-address">BAIHARI POST PATHA CHARKHARI MAHOBA U P 210424</div>
+                        </div>
+                        <div class="pb-data-row" style="margin-top: 3px;">
+                            <div class="pb-field-label">BC AGENT NAME</div>
+                            <div class="pb-field-colon">:</div>
+                            <div class="pb-field-value" id="view-bcname">SUSHIL KUMAR</div>
+                        </div>
+                        <div class="pb-data-row">
+                            <div class="pb-field-label">BC ID / LOC</div>
+                            <div class="pb-field-value">251322210016 / VILL PATHA POST PATHA MAHOBA U P 210424</div>
+                        </div>
+                    </div>
+                    
+                    <div class="pb-right-pane">
+                        <div class="photo-wrapper-block">
+                            <div class="pb-photo-container">
+                                <img id="view-photo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='140' viewBox='0 0 120 140'><rect width='120' height='140' fill='%23e0e0e0'/><text x='50%25' y='50%25' font-size='12' font-family='sans-serif' dominant-baseline='middle' text-anchor='middle' fill='%23666'>PHOTO BOX</text></svg>" alt="Customer Pic">
+                            </div>
+                        </div>
+                        
+                        <div class="pb-stamp-overlay">
+                            AXIS BANK<br><span style="font-size:5px;">MAHOBA AGENT</span><br><span style="font-size:5px;" id="view-stamp-agent">SUSHIL KUMAR</span>
+                        </div>
+
+                        <div class="pb-sign-holder-clean">
+                            <img id="view-digital-sign" class="pb-digital-sign-overlay" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='35'></svg>" alt="" style="display:none;">
+                        </div>
+
+                        <div class="pb-sign-text-container">
+                            <div class="pb-sign-text-below">Authorized Signatory</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pb-footer">
+                    <div>24x7 Help: 1860 419 5555</div>
+                    <div class="pb-footer-brand">AXIS BANK</div>
+                </div>
+            </div>
+
+
+            <div class="passbook-card back-card-element" id="back-card">
+                <div class="pb-gold-divider"></div>
+                <div class="back-content-grid">
+                    <div>
+                        <div class="back-title">Terms & Conditions / नियम व शर्तें</div>
+                        <ul class="terms-list">
+                            <li>This passbook is an official record of account transactions issued by Axis Bank FI-Business Correspondent channel.</li>
+                            <li>यह पासबुक कुंजी है और एक्सिस बैंक बिजनेस कॉरेस्पॉन्डेंट शाखा द्वारा जारी किया गया एक आधिकारिक खाता रिकॉर्ड है।</li>
+                            <li>Please verify all entries carefully. Any discrepancy should be reported immediately to the branch.</li>
+                            <li>कृपया सभी प्रविष्टियों की ध्यानपूर्वक जांच करें। किसी भी गड़बड़ी की सूचना तुरंत शाखा को दें।</li>
+                            <li>Never share your ATM PIN, Internet Banking Password, OTP or CVV with anyone. Bank never asks for it.</li>
+                            <li>कभी भी अपना एटीएम पिन, इंटरनेट बैंकिंग पासवर्ड, ओटीपी या सीवीवी किसी के साथ साझा न करें। बैंक कभी नहीं मांगता।</li>
+                        </ul>
+                    </div>
+
+                    <div class="back-bottom-row">
+                        <div class="support-info">
+                            Customer Care Support: <span>1860 419 5555 / 1860 500 5555</span><br>
+                            To report lost/stolen tokens: <span>1800 22 5555</span><br>
+                            Official Website: <span>www.axisbank.com</span>
+                        </div>
+                        <div>
+                            <img class="back-qr-code" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><rect width='80' height='80' fill='white'/><path d='M0 0h30v30h-30zm5 5v20h20v-20zm5 5h10v10h-10zm40-10h30v30h-30zm5 5v20h20v-20zm5 5h10v10h-10zm-50 40h30v30h-30zm5 5v20h20v-20zm5 5h10v10h-10zm35 5h5v5h-5zm10 0h5v5h-5zm10 0h5v5h-5zm-20 10h5v5h-5zm15 0h5v5h-5zm5 5h5v5h-5zm-15 0h5v5h-5zm-5-10h5v5h-5z' fill='%23841439'/></svg>" alt="QR">
+                        </div>
+                    </div>
+                </div>
+                <div class="pb-footer">
+                    <div>Axis Bank Ltd. Corporate Office, Mumbai</div>
+                    <div class="pb-footer-brand">AXIS BANK</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function previewFile(input, targetId) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const targetImg = document.getElementById(targetId);
+                    targetImg.src = e.target.result;
+                    targetImg.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function updateLivePreview() {
+            document.getElementById('view-name').innerText = document.getElementById('txt-name').value;
+            document.getElementById('view-father').innerText = document.getElementById('txt-father').value;
+            document.getElementById('view-acc').innerText = document.getElementById('txt-acc').value;
+            document.getElementById('view-custid').innerText = document.getElementById('txt-custid').value;
+            document.getElementById('view-ifsc').innerText = document.getElementById('txt-ifsc').value;
+            document.getElementById('view-type').innerText = document.getElementById('txt-type').value;
+            
+            const rawAadhar = document.getElementById('txt-aadhar').value;
+            document.getElementById('view-aadhar').innerText = rawAadhar ? rawAadhar.replace(/.(?=.{4})/g, "*") : "";
+            
+            document.getElementById('view-address').innerText = document.getElementById('txt-address').value;
+            
+            const bcName = document.getElementById('txt-bcname').value;
+            document.getElementById('view-bcname').innerText = bcName;
+            document.getElementById('view-stamp-agent').innerText = bcName;
+        }
+
+        function executeSystemPrint(targetSide, sizeMode) {
+            updateLivePreview();
+            
+            document.body.classList.remove('mode-print-a4', 'mode-print-pvc', 'print-target-front', 'print-target-combo');
+            
+            if (sizeMode === 'a4') {
+                document.body.classList.add('mode-print-a4');
+            } else if (sizeMode === 'pvc') {
+                document.body.classList.add('mode-print-pvc');
+            }
+
+            if (targetSide === 'front') {
+                document.body.classList.add('print-target-front');
+            } else if (targetSide === 'combo') {
+                document.body.classList.add('print-target-combo');
+            }
+            
+            window.print();
+        }
+
+        window.onload = function() {
+            updateLivePreview();
+        };
+    </script>
+</body>
+</html>
