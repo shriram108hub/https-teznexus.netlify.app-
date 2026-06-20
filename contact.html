@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Tezz Shiva Nexus | Cyber Cafe & Digital Service</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <style>
+        /* ==========================================
+           CSS VARIABLES & THEME DEFINITIONS
+           ========================================== */
+        :root {
+            --font-main: 'Poppins', sans-serif;
+            
+            /* Dark Mode Palette (Cyberpunk / Neon Default) */
+            --bg-gradient: linear-gradient(135deg, #070210 0%, #0c0721 50%, #031022 100%);
+            --glass-bg: rgba(16, 16, 35, 0.45);
+            --glass-border: rgba(100, 255, 218, 0.2);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --primary-neon: #00ffff;
+            --secondary-neon: #9d4edd;
+            --accent-neon: #64ffda;
+            --danger-red: #ff3860;
+            --success-green: #00ff88;
+            --card-hover-glow: rgba(0, 255, 255, 0.15);
+            --shadow-ambient: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        [data-theme="light"] {
+            /* Premium Light Mode Palette with Glassmorphism */
+            --bg-gradient: linear-gradient(135deg, #eef2f6 0%, #f4f7fa 50%, #e8edf2 100%);
+            --glass-bg: rgba(255, 255, 255, 0.55);
+            --glass-border: rgba(124, 58, 237, 0.25);
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --primary-neon: #2563eb;
+            --secondary-neon: #7c3aed;
+            --accent-neon: #0d9488;
+            --card-hover-glow: rgba(124, 58, 237, 0.15);
+            --shadow-ambient: 0 8px 24px 0 rgba(0, 0, 0, 0.08);
+        }
+
+        /* ==========================================
+           RESET & BASE STYLES
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Glassmorphism utility */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-ambient);
+        }
+
+        /* Typography Enhancements */
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+
+        .neon-text {
+            color: var(--primary-neon);
+            text-shadow: 0 0 10px var(--primary-neon), 0 0 20px var(--secondary-neon);
+        }
+
+        /* ==========================================
+           PRELOADER
+           ========================================== */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #070210;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .neon-spinner {
+            width: 60px; height: 60px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary-neon);
+            border-left-color: var(--secondary-neon);
+            animation: spin 0.8s infinite linear;
+            box-shadow: 0 0 15px var(--primary-neon);
+        }
+
+        .loading-text {
+            margin-top: 2rem;
+            color: var(--primary-neon);
+            letter-spacing: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* ==========================================
+           BACKGROUND PARTICLES
+           ========================================== */
+        .bg-particles {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--primary-neon);
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: floatParticle 15s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.15; }
+            90% { opacity: 0.15; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
+
+        /* ==========================================
+           SITE HEADER & NAVIGATION
+           ========================================== */
+        .site-header {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(7, 2, 16, 0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--secondary-neon);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            width: 42px; height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            font-size: 1.1rem;
+        }
+
+        .theme-toggle:hover {
+            box-shadow: 0 0 10px var(--primary-neon);
+            border-color: var(--primary-neon);
+        }
+
+        /* ==========================================
+           1. HERO SECTION
+           ========================================== */
+        .hero-section {
+            padding: 5rem 0 3rem;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .hero-title span {
+            background: linear-gradient(90deg, var(--primary-neon), var(--secondary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================
+           2. CONTACT INFO CARDS
+           ========================================== */
+        .contact-cards-section {
+            padding: 4rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: var(--shadow-ambient);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-neon);
+            box-shadow: 0 0 20px var(--card-hover-glow);
+        }
+
+        .icon-box {
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+            color: #070210;
+            display: grid;
+            place-items: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .card-subtext {
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================
+           3. CONTACT FORM SECTION
+           ========================================== */
+        .contact-main-section {
+            padding-bottom: 5rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            align-items: stretch;
+        }
+
+        .form-container {
+            padding: 3rem;
+        }
+
+        .form-container h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .form-container h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 0;
+            width: 50%; height: 4px;
+            background: linear-gradient(90deg, var(--primary-neon), var(--secondary-neon));
+            border-radius: 2px;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 1.2rem 1rem;
+            background: rgba(0,0,0,0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--text-main);
+            outline: none;
+            resize: vertical;
+        }
+
+        .form-group select {
+            appearance: none;
+            cursor: pointer;
+            background-image: linear-gradient(45deg, transparent 50%, var(--primary-neon) 50%), 
+                              linear-gradient(135deg, var(--primary-neon) 50%, transparent 50%);
+            background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px);
+            background-size: 5px 5px, 5px 5px;
+            background-repeat: no-repeat;
+        }
+
+        .form-group label {
+            position: absolute;
+            left: 1rem; top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group input:focus ~ label,
+        .form-group textarea:focus ~ label,
+        .form-group input:not(:placeholder-shown) ~ label,
+        .form-group textarea:not(:placeholder-shown) ~ label {
+            top: -10px;
+            transform: translateY(0) scale(0.85);
+            background: var(--bg-gradient);
+            padding: 0 6px;
+            color: var(--primary-neon);
+            border-radius: 4px;
+        }
+
+        .form-group select:valid ~ label {
+            top: -10px;
+            transform: translateY(0) scale(0.85);
+            background: var(--bg-gradient);
+            padding: 0 6px;
+            color: var(--primary-neon);
+            border-radius: 4px;
+        }
+
+        .form-group .error-message {
+            color: var(--danger-red);
+            font-size: 0.75rem;
+            margin-top: 0.4rem;
+            margin-left: 0.2rem;
+            display: none;
+        }
+
+        .form-group.invalid input, 
+        .form-group.invalid textarea {
+            border-color: var(--danger-red);
+        }
+
+        .form-group.invalid .error-message {
+            display: block;
+        }
+
+        .neon-btn-submit {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(90deg, var(--secondary-neon), var(--primary-neon));
+            border: none;
+            border-radius: 10px;
+            color: #070210;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
+        }
+
+        .neon-btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px var(--primary-neon), 0 0 50px var(--secondary-neon);
+            background: linear-gradient(90deg, var(--primary-neon), var(--secondary-neon));
+        }
+
+        .success-message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(0, 255, 136, 0.15);
+            border: 1px solid var(--success-green);
+            color: var(--success-green);
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .map-container {
+            overflow: hidden;
+            min-height: 450px;
+        }
+
+        .map-container iframe {
+            filter: invert(0.9) hue-rotate(180deg);
+            border-radius: 20px;
+        }
+
+        [data-theme="light"] .map-container iframe {
+            filter: none;
+        }
+
+        /* ==========================================
+           5. FLOATING QUICK CONTACT BUTTONS (FAB)
+           ========================================== */
+        .floating-action-buttons {
+            position: fixed;
+            bottom: 2rem; right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 95;
+        }
+
+        .fab-btn {
+            width: 55px; height: 55px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-ambient);
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .fab-btn:hover {
+            transform: scale(1.15) rotate(10deg);
+        }
+
+        .fab-whatsapp { background: #25d366; box-shadow: 0 0 15px #25d366; }
+        .fab-call { background: var(--secondary-neon); box-shadow: 0 0 15px #25d366; }
+        .fab-email { background: var(--primary-neon); box-shadow: 0 0 15px #25d366; color: #070210; }
+
+        /* ==========================================
+           7. FOOTER
+           ========================================== */
+        .site-footer {
+            background: rgba(0,0,0,0.2);
+            border-top: 1px solid var(--glass-border);
+            padding: 3rem 0 1.5rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: grid;
+            place-items: center;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-neon);
+            color: #070210;
+            box-shadow: 0 0 15px var(--primary-neon);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 1.5rem;
+        }
+
+        /* ==========================================
+           RESPONSIVE BREAKPOINTS
+           ========================================== */
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 2.8rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .map-container { min-height: 350px; }
+        }
+
+        @media (max-width: 768px) {
+            .site-header { padding: 1rem; }
+            .hero-title { font-size: 2.2rem; }
+            .form-container { padding: 1.5rem; }
+            .floating-action-buttons { bottom: 1.5rem; right: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="neon-spinner"></div>
+        <div class="loading-text">TEZZ SHIVA NEXUS...</div>
+    </div>
+
+    <div class="bg-particles" id="particles"></div>
+
+    <header class="site-header">
+        <a href="#" class="logo">
+            <i class="fa-solid fa-bolt neon-text"></i> <span>Tezz Shiva</span>Nexus
+        </a>
+        <button class="theme-toggle" id="themeToggleBtn" aria-label="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title reveal-slide-up">Contact <span>Us</span></h1>
+                <p class="hero-subtitle reveal-slide-up">Step into the future. We're here to help you navigate your digital world.</p>
+            </div>
+        </section>
+
+        <section class="contact-cards-section">
+            <div class="container grid-3">
+                <div class="info-card reveal-fade-in">
+                    <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
+                    <h3>Location</h3>
+                    <p>Nexus Sector 7, Cyber Hub</p>
+                    <span class="card-subtext">Main Street, Digital City</span>
+                </div>
+                <div class="info-card reveal-fade-in" data-delay="100">
+                    <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
+                    <h3>Direct Line</h3>
+                    <p>+91 98765 43210</p>
+                    <span class="card-subtext">Mon-Sat: 9AM - 11PM</span>
+                </div>
+                <div class="info-card reveal-fade-in" data-delay="200">
+                    <div class="icon-box"><i class="fa-solid fa-envelope"></i></div>
+                    <h3>Digital Mail</h3>
+                    <p>support@tezzshivanexus.com</p>
+                    <span class="card-subtext">24/7 Response Time</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-main-section">
+            <div class="container grid-2">
+                <div class="form-container glass-card reveal-slide-left">
+                    <h2>Drop a Message</h2>
+                    <form id="contactForm" action="YOUR_SHEET_BEST_CONNECTION_URL" method="POST">
+                        <div class="form-group">
+                            <input type="text" id="fullName" name="Name" placeholder=" " required>
+                            <label for="fullName"><i class="fa-solid fa-user"></i> Full Name</label>
+                            <div class="error-message">Please enter your valid name.</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="mobileNumber" name="Phone" placeholder=" " pattern="[0-9]{10}" required>
+                            <label for="mobileNumber"><i class="fa-solid fa-phone"></i> Mobile Number</label>
+                            <div class="error-message">Enter a 10-digit mobile number.</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="emailAddress" name="Email" placeholder=" " required>
+                            <label for="emailAddress"><i class="fa-solid fa-envelope"></i> Email Address</label>
+                            <div class="error-message">Please enter a valid email.</div>
+                        </div>
+                        <div class="form-group">
+                            <select id="serviceRequired" name="Service" required>
+                                <option value="" disabled selected>Select a Service</option>
+                                <option value="Cyber Cafe">High-Speed Gaming & Browsing</option>
+                                <option value="Digital Services">Government & Legal Digital Services</option>
+                                <option value="Printing Scanning">Premium Print, Scan & DTP</option>
+                                <option value="Consulting">Tech Consulting & Setup</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="Message" rows="4" placeholder=" " required></textarea>
+                            <label for="message"><i class="fa-solid fa-pen"></i> Your Message</label>
+                            <div class="error-message">Message cannot be empty.</div>
+                        </div>
+                        <button type="submit" class="neon-btn-submit" id="submitBtn">
+                            <span>Transmit Message</span> <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                        <div id="formSuccessMsg" class="success-message">Transmission Successful! Details updated in Sheet.</div>
+                    </form>
+                </div>
+
+                <div class="map-container glass-card reveal-slide-right">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30711243.177263316!2d64.40539304446042!3d20.009985282728775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a!2sIndia!5e0!3m2!1sen!2sin!4v1684753120485!5m2!1sen!2sin" 
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Location Map"></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="floating-action-buttons">
+        <a href="https://wa.me/919876543210" class="fab-btn fab-whatsapp" target="_blank" aria-label="WhatsApp Us">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="tel:+919876543210" class="fab-btn fab-call" aria-label="Call Now">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+        <a href="mailto:support@tezzshivanexus.com" class="fab-btn fab-email" aria-label="Send Email">
+            <i class="fa-solid fa-envelope"></i>
+        </a>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <a href="#" class="footer-logo"><i class="fa-solid fa-bolt neon-text"></i> Tezz Shiva Nexus</a>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Tezz Shiva Nexus. Cyber Cafe & Digital Service Center. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* ==========================================
+           SMOOTH PAGE PRELOADER 
+           ========================================== */
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.visibility = 'hidden';
+            }, 500);
+        });
+
+        /* ==========================================
+           DYNAMIC BACKGROUND PARTICLES GENERATION
+           ========================================== */
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 40;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random sizes, horizontal alignment & durations
+            const size = Math.random() * 6 + 2; 
+            const leftPos = Math.random() * 100;
+            const animDuration = Math.random() * 10 + 8;
+            const animDelay = Math.random() * 5;
+
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${leftPos}%`;
+            particle.style.animationDuration = `${animDuration}s`;
+            particle.style.animationDelay = `${animDelay}s`;
+            
+            // Assign random neon color variations
+            const colors = ['var(--primary-neon)', 'var(--secondary-neon)', 'var(--accent-neon)'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+            particlesContainer.appendChild(particle);
+        }
+
+        /* ==========================================
+           THEME TOGGLER (DARK / LIGHT MODE)
+           ========================================== */
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        themeToggleBtnState();
+
+        themeToggleBtnState();
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            let newTheme = 'light';
+            
+            if (currentTheme === 'light') {
+                newTheme = 'dark';
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+            ToggleBtnState();
+        });
+
+        function ToggleBtnState() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            } else {
+                themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            }
+        }
+
+        /* ==========================================
+           SCROLL REVEAL ANIMATIONS 
+           ========================================== */
+        ScrollReveal().reveal('.reveal-slide-up', {
+            distance: '50px',
+            origin: 'bottom',
+            opacity: 0,
+            duration: 800,
+            interval: 150
+        });
+
+        ScrollReveal().reveal('.reveal-fade-in', {
+            opacity: 0,
+            duration: 1000,
+            interval: 100,
+            delay: (el) => el.dataset.delay || 0
+        });
+
+        ScrollReveal().reveal('.reveal-slide-left', {
+            distance: '80px',
+            origin: 'left',
+            opacity: 0,
+            duration: 1000
+        });
+
+        ScrollReveal().reveal('.reveal-slide-right', {
+            distance: '80px',
+            origin: 'right',
+            opacity: 0,
+            duration: 1000
+        });
+
+        /* ==========================================
+           CONTACT FORM VALIDATION & SUCCESS MESSAGE
+           ========================================== */
+        const contactForm = document.getElementById('contactForm');
+        const fullName = document.getElementById('fullName');
+        const mobileNumber = document.getElementById('mobileNumber');
+        const emailAddress = document.getElementById('emailAddress');
+        const message = document.getElementById('message');
+        const formSuccessMsg = document.getElementById('formSuccessMsg');
+
+        contactForm.addEventListener('submit', (e) => {
+            let isValid = true;
+
+            // Name Validation
+            if(fullName.value.trim().length < 3) {
+                fullName.parentElement.classList.add('invalid');
+                isValid = false;
+            } else {
+                fullName.parentElement.classList.remove('invalid');
+            }
+
+            // Phone Regex Validation
+            const phoneRegex = /^[0-9]{10}$/;
+            if(!phoneRegex.test(mobileNumber.value)) {
+                mobileNumber.parentElement.classList.add('invalid');
+                isValid = false;
+            } else {
+                mobileNumber.parentElement.classList.remove('invalid');
+            }
+
+            // Email Regex Validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!emailRegex.test(emailAddress.value)) {
+                emailAddress.parentElement.classList.add('invalid');
+                isValid = false;
+            } else {
+                emailAddress.parentElement.classList.remove('invalid');
+            }
+
+            // Message Validation
+            if(message.value.trim() === "") {
+                message.parentElement.classList.add('invalid');
+                isValid = false;
+            } else {
+                message.parentElement.classList.remove('invalid');
+            }
+
+            if(isValid) {
+                formSuccessMsg.style.display = 'block';
+                // Form data will be sent to google sheet via sheet.best endpoint
+                setTimeout(() => {
+                    formSuccessMsg.style.display = 'none';
+                }, 5000);
+            } else {
+                e.preventDefault();
+            }
+        });
+
+        const formInputs = document.querySelectorAll('.form-group input, .form-group textarea');
+        formInputs.forEach(input => {
+            input.addEventListener('input', () => {
+                input.parentElement.classList.remove('invalid');
+            });
+        });
+    </script>
+</body>
+</html>

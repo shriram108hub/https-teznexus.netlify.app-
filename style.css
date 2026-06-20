@@ -1,0 +1,413 @@
+/* --- CSS Variables for Light/Dark Mode --- */
+:root {
+    /* Light Mode */
+    --bg: #f8fafc;
+    --text: #334155;
+    --heading: #0f172a;
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --header-bg: rgba(255, 255, 255, 0.95);
+    --ticker-bg: #0f172a;
+    --ticker-text: #ffffff;
+    --footer-bg: #0f172a;
+    --shadow: 0 12px 30px rgba(0,0,0,0.08);
+    --smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+    /* Dark Mode */
+    --bg: #0f172a;
+    --text: #94a3b8;
+    --heading: #f8fafc;
+    --card-bg: #1e293b;
+    --card-border: #334155;
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --header-bg: rgba(15, 23, 42, 0.95);
+    --ticker-bg: #1e293b;
+    --ticker-text: #f8fafc;
+    --footer-bg: #020617;
+    --shadow: 0 12px 30px rgba(0,0,0,0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- Header --- */
+.header {
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--card-border);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    font-weight: 500;
+    color: var(--heading);
+    transition: var(--smooth);
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#theme-toggle, .hamburger {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    color: var(--heading);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#theme-toggle:hover {
+    color: var(--primary);
+}
+
+.hamburger {
+    display: none;
+    z-index: 1001; /* Must be above the menu panel */
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--smooth);
+}
+
+/* --- News Ticker --- */
+.news-ticker {
+    margin-top: 70px;
+    background: var(--ticker-bg);
+    color: var(--ticker-text);
+    display: flex;
+    align-items: center;
+    height: 40px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--card-border);
+    transition: background-color 0.3s ease;
+}
+
+.ticker-title {
+    background: #ef4444;
+    color: #fff;
+    padding: 0 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.ticker-content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+}
+
+.ticker-text {
+    position: absolute;
+    white-space: nowrap;
+    line-height: 40px;
+    animation: ticker 25s linear infinite;
+}
+
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* --- Hero Section --- */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 5%;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: rgba(37, 99, 235, 0.15);
+    color: var(--primary);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+#hero-changing-text {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--heading);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    transition: var(--smooth);
+    will-change: opacity, transform;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #ffffff;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--smooth);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+/* --- Services Section --- */
+.services {
+    padding: 5rem 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: var(--heading);
+}
+
+.header-line {
+    width: 60px;
+    height: 4px;
+    background: var(--primary);
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 16px;
+    border: 1px solid var(--card-border);
+    transition: var(--smooth);
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow);
+}
+
+.icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Universal Icon Colors (Looks good on Light & Dark) */
+.blue { background: rgba(37, 99, 235, 0.15); color: #3b82f6; }
+.green { background: rgba(22, 163, 74, 0.15); color: #22c55e; }
+.orange { background: rgba(234, 88, 12, 0.15); color: #f97316; }
+.purple { background: rgba(147, 51, 234, 0.15); color: #a855f7; }
+.pink { background: rgba(219, 39, 119, 0.15); color: #ec4899; }
+.red { background: rgba(220, 38, 38, 0.15); color: #ef4444; }
+
+.service-card h3 {
+    font-size: 1.25rem;
+    color: var(--heading);
+    margin-bottom: 0.5rem;
+}
+
+/* --- Footer --- */
+.footer {
+    background: var(--footer-bg);
+    color: #f8fafc;
+    padding: 4rem 5% 1rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+.social-links {
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+.social-links a {
+    color: white; /* Ya apni pasand ka color */
+    margin: 0 10px;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    color: #ffcc00; /* Hover karne par rang badlega */
+}
+
+.footer h2 {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.contact-info span {
+    background: rgba(255,255,255,0.1);
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-bottom {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+/* --- Mobile Responsive & RIGHT PANEL MENU --- */
+@media (max-width: 768px) {
+    .hamburger { display: block; }
+    
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -300px; /* Hidden off-screen to the right */
+        width: 260px;
+        height: 100vh;
+        background: var(--card-bg);
+        border-left: 1px solid var(--card-border);
+        flex-direction: column;
+        padding-top: 90px; /* Space for header */
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 999;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 1rem 2rem;
+        border-bottom: 1px solid var(--card-border);
+        font-size: 1.1rem;
+    }
+    
+    /* Active State for Right Panel Menu */
+    .nav-menu.active { right: 0; }
+    .menu-overlay.active { opacity: 1; visibility: visible; }
+    
+    #hero-changing-text { font-size: 2.5rem; }
+    .hero { min-height: 70vh; }
+}
