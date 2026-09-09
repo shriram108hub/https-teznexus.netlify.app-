@@ -1,140 +1,891 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Aapka Apna Digital Seva Kendra - Fast & Secure Services">
-    <title>Digital Seva & Cyber Cafe</title>
+    <meta name="description" content="Tez Shiva Nexus - Advanced Digital Seva Kendra & Cyber Cafe Services">
+    <title>Tez Shiva Nexus - Digital Seva & Cyber Cafe</title>
+    
+    <!-- External Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --card-bg: rgba(30, 41, 59, 0.85);
+            --border-radius: 20px;
+            --glass-border: 1px solid rgba(255, 255, 255, 0.12);
+            --shadow: 0 15px 35px rgba(0,0,0,0.4);
+            
+            --dynamic-theme-color: #38bdf8;
+            --dynamic-gradient: linear-gradient(135deg, #38bdf8, #818cf8);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f1f5f9;
+            --text-color: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: 1px solid rgba(0, 0, 0, 0.08);
+            --shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            background: linear-gradient(rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.94)), 
+                        url('https://www.issi-online.com/wp-content/uploads/2023/12/intelligent-document-processing-1200x900.jpg') center/cover fixed no-repeat;
+            color: var(--text-color); 
+            transition: background 0.3s, color 0.3s; 
+            overflow-x: hidden; 
+        }
+
+        [data-theme="light"] body {
+            background: linear-gradient(rgba(241, 245, 249, 0.90), rgba(241, 245, 249, 0.95)), 
+                        url('https://www.issi-online.com/wp-content/uploads/2023/12/intelligent-document-processing-1200x900.jpg') center/cover fixed no-repeat;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* Header Navigation */
+        .header {
+            position: sticky; top: 0; z-index: 1000;
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            background: rgba(15, 23, 42, 0.85);
+            border-bottom: var(--glass-border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        [data-theme="light"] .header { background: rgba(255, 255, 255, 0.9); }
+        
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 5%; max-width: 1400px; margin: auto; }
+        
+        .logo { font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; gap: 12px; }
+        .logo-icon-png { width: 42px; height: 42px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(79, 70, 229, 0.35)); }
+        .logo-text { background: linear-gradient(135deg, #38bdf8, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .nav-links { display: flex; gap: 1.6rem; align-items: center; font-weight: 500; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--dynamic-theme-color); transition: 0.3s; }
+        .status-menu-btn { color: #ec4899 !important; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .login-btn { background: linear-gradient(135deg, #4f46e5, #9333ea); color: white !important; padding: 8px 22px; border-radius: 50px; transition: 0.3s; }
+        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(147, 51, 234, 0.4); }
+        .controls button { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-color); margin-left: 15px; }
+
+        /* Smooth Single-Line Marquee */
+        .yojna-live-box {
+            background: linear-gradient(90deg, rgba(236, 72, 153, 0.95), rgba(139, 92, 246, 0.95));
+            color: white; padding: 8px 5%; display: flex; align-items: center; gap: 15px; font-weight: 600;
+            backdrop-filter: blur(8px); overflow: hidden; height: 42px;
+        }
+        .live-badge { background: white; color: #ec4899; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; white-space: nowrap; flex-shrink: 0; }
+        .marquee-container { flex: 1; overflow: hidden; white-space: nowrap; display: flex; align-items: center; }
+        .marquee { display: inline-block; white-space: nowrap; animation: scrollText 22s linear infinite; font-size: 0.92rem; }
+        .marquee span { margin-right: 40px; display: inline-flex; align-items: center; gap: 8px; }
+        @keyframes scrollText { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* Hero Section */
+        .hero { text-align: center; padding: 60px 20px 40px; }
+        .badge { display: inline-block; padding: 8px 20px; background: rgba(56, 189, 248, 0.15); color: var(--dynamic-theme-color); border-radius: 30px; font-weight: 600; margin-bottom: 20px; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .changing-text-wrapper { min-height: 70px; display: flex; align-items: center; justify-content: center; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 15px; line-height: 1.2; }
+        .hero p { font-size: 1.05rem; max-width: 720px; margin: 0 auto 30px; opacity: 0.85; }
+        .btn-primary { background: linear-gradient(135deg, #4f46e5, #06b6d4); color: white; padding: 14px 32px; border-radius: 50px; font-size: 1rem; font-weight: 600; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(6, 182, 212, 0.4); }
+
+        /* HIGHLIGHTED NEW 5 SERVICES SECTION */
+        .highlight-services-section { padding: 40px 5%; max-width: 1400px; margin: auto; }
+        .highlight-header { text-align: center; margin-bottom: 35px; }
+        .highlight-header h2 { font-size: 2.2rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 12px; color: #ec4899; }
+        .highlight-header p { opacity: 0.8; font-size: 0.95rem; margin-top: 5px; }
+
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .highlight-card {
+            background: var(--card-bg);
+            border: 2px solid rgba(236, 72, 153, 0.4);
+            border-radius: var(--border-radius);
+            padding: 25px 18px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(16px);
+            transition: all 0.3s ease;
+        }
+
+        .highlight-card::before {
+            content: 'NEW';
+            position: absolute; top: 12px; right: -28px;
+            background: linear-gradient(135deg, #ec4899, #f43f5e);
+            color: white; font-size: 0.65rem; font-weight: 800;
+            padding: 4px 30px; transform: rotate(45deg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-8px);
+            border-color: #ec4899;
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.25);
+        }
+
+        .highlight-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .highlight-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+        .highlight-card p { font-size: 0.8rem; opacity: 0.8; line-height: 1.4; }
+
+        /* Application Status Section */
+        .status-section { padding: 30px 5%; max-width: 1100px; margin: auto; }
+        .status-card { background: var(--card-bg); border: var(--glass-border); padding: 35px; border-radius: var(--border-radius); box-shadow: var(--shadow); backdrop-filter: blur(16px); text-align: center; }
+        .status-form { display: grid; grid-template-columns: 1fr auto; gap: 15px; margin-top: 25px; }
+        .status-select { padding: 14px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); font-size: 0.95rem; outline: none; background: rgba(0,0,0,0.3); color: var(--text-color); width: 100%; cursor: pointer; }
+        [data-theme="light"] .status-select { background: #ffffff; border-color: rgba(0,0,0,0.15); }
+        .status-btn { background: linear-gradient(135deg, #ec4899, #8b5cf6); color: white; border: none; padding: 14px 28px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; justify-content: center; }
+        .status-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4); }
+
+        /* Document Process Flow */
+        .stages-process-section { padding: 40px 5%; max-width: 1350px; margin: auto; }
+        .stages-card { background: var(--card-bg); border: var(--glass-border); border-radius: var(--border-radius); padding: 45px 25px; box-shadow: var(--shadow); backdrop-filter: blur(16px); text-align: center; }
+        .stages-title-box h3 { font-size: 2rem; font-weight: 800; color: var(--dynamic-theme-color); display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .stages-title-box p { font-size: 0.95rem; opacity: 0.8; margin-top: 8px; margin-bottom: 45px; }
+
+        .process-flow-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; position: relative; }
+        .process-flow-grid::before { content: ''; position: absolute; top: 48px; left: 8%; right: 8%; height: 4px; background: linear-gradient(90deg, #14b8a6, #f43f5e, #ca8a04, #3b82f6, #8b5cf6); z-index: 1; border-radius: 10px; }
+        .step-node-card { background: rgba(15, 23, 42, 0.7); border: var(--glass-border); padding: 25px 15px; border-radius: 18px; position: relative; z-index: 2; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; text-align: center; backdrop-filter: blur(10px); }
+        [data-theme="light"] .step-node-card { background: rgba(255, 255, 255, 0.9); }
+        .step-node-card:hover { transform: translateY(-8px); border-color: var(--dynamic-theme-color); }
+        .node-icon-badge { width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: white; margin-bottom: 18px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); border: 3px solid rgba(255,255,255,0.25); }
+        .s-1 { background: linear-gradient(135deg, #0d9488, #14b8a6); }
+        .s-2 { background: linear-gradient(135deg, #e11d48, #f43f5e); }
+        .s-3 { background: linear-gradient(135deg, #a16207, #ca8a04); }
+        .s-4 { background: linear-gradient(135deg, #2563eb, #3b82f6); }
+        .s-5 { background: linear-gradient(135deg, #7c3aed, #8b5cf6); }
+        .step-title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--text-color); }
+        .step-desc { font-size: 0.82rem; opacity: 0.8; line-height: 1.4; }
+
+        /* ALL SERVICES GRID */
+        .services { padding: 40px 5% 60px; max-width: 1400px; margin: auto; }
+        .section-header { text-align: center; margin-bottom: 45px; }
+        .section-header h2 { font-size: 2.2rem; font-weight: 800; }
+        .header-line { width: 80px; height: 4px; background: var(--dynamic-theme-color); margin: 10px auto; border-radius: 2px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 22px; }
+        .service-card { background: var(--card-bg); border: var(--glass-border); padding: 28px 20px; border-radius: var(--border-radius); box-shadow: var(--shadow); backdrop-filter: blur(12px); transition: 0.3s; text-align: center; }
+        .service-card:hover { transform: translateY(-6px); border-color: var(--dynamic-theme-color); }
+        .icon-box { font-size: 2.3rem; margin-bottom: 12px; background: linear-gradient(135deg, #38bdf8, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .service-card h3 { font-size: 1.15rem; margin-bottom: 8px; font-weight: 700; }
+        .service-card p { font-size: 0.85rem; opacity: 0.8; line-height: 1.5; }
+
+        /* IMPROVED ATTRACTIVE "GET IN TOUCH" / CONTACT SECTION WITH AI BG ROTATION */
+        .dynamic-contact-section { padding: 50px 5%; max-width: 1400px; margin: auto; }
+        .contact-banner-box {
+            background-color: #0f172a;
+            background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.90), rgba(79, 70, 229, 0.82)), 
+                              url('https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1400&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-blend-mode: overlay;
+            border-radius: var(--border-radius);
+            padding: 60px 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            color: white;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+            border: 2px solid rgba(56, 189, 248, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: background-image 1s ease-in-out;
+        }
+
+        .contact-left-content h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .contact-left-content p { font-size: 1.05rem; opacity: 0.95; margin-bottom: 25px; line-height: 1.6; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+        
+        .live-status-pill {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: rgba(15, 23, 42, 0.7); padding: 10px 20px;
+            border-radius: 30px; font-weight: 600; font-size: 0.9rem;
+            border: 1px solid rgba(56, 189, 248, 0.5);
+            backdrop-filter: blur(8px);
+            margin-bottom: 15px;
+        }
+        .blinking-dot { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; animation: pulse 1s infinite; }
+
+        .contact-right-cards { display: flex; flex-direction: column; gap: 15px; }
+        
+        .interactive-contact-card {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 20px 25px;
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: space-between;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+        .interactive-contact-card:hover {
+            background: rgba(30, 41, 59, 0.9);
+            transform: translateX(5px);
+            border-color: #38bdf8;
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.2);
+        }
+
+        .ic-info h4 { font-size: 0.9rem; font-weight: 600; color: #38bdf8; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .ic-info p { font-size: 1.1rem; font-weight: 700; color: #ffffff; }
+        .ic-action-btn {
+            background: linear-gradient(135deg, #4f46e5, #06b6d4); color: white; width: 45px; height: 45px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .interactive-contact-card:hover .ic-action-btn { background: #38bdf8; transform: scale(1.1); }
+
+        /* AI Assistant Drawer */
+        .support-desk-wrapper { position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 9999; display: flex; align-items: flex-start; transition: 0.4s ease; }
+        .support-toggle-btn { background: linear-gradient(135deg, #6366f1, #a855f7); color: white; padding: 16px 12px; border-radius: 14px 0 0 14px; cursor: pointer; font-weight: 700; display: flex; flex-direction: column; align-items: center; gap: 8px; writing-mode: vertical-rl; text-orientation: mixed; box-shadow: -5px 0 20px rgba(99, 102, 241, 0.4); border: none; outline: none; }
+        .support-toggle-btn i { font-size: 1.3rem; writing-mode: horizontal-tb; animation: rotateAi 3s infinite linear; }
+        @keyframes rotateAi { 0%{ transform: rotate(0deg); } 100%{ transform: rotate(360deg); } }
+
+        .support-drawer { width: 350px; height: 500px; background: rgba(15, 23, 42, 0.95); border: var(--glass-border); border-radius: 20px 0 0 20px; box-shadow: -10px 10px 30px rgba(0,0,0,0.4); display: none; flex-direction: column; overflow: hidden; backdrop-filter: blur(20px); }
+        [data-theme="light"] .support-drawer { background: rgba(255, 255, 255, 0.95); }
+        .support-desk-wrapper.active .support-drawer { display: flex; }
+        .support-desk-wrapper.active .support-toggle-btn { border-radius: 0; }
+
+        .ai-header { background: linear-gradient(135deg, #4f46e5, #9333ea); color: white; padding: 15px 18px; display: flex; align-items: center; justify-content: space-between; }
+        .ai-bot-info { display: flex; align-items: center; gap: 12px; }
+        .ai-avatar { width: 38px; height: 38px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .ai-details h4 { font-size: 0.95rem; font-weight: 700; }
+        .ai-status { font-size: 0.75rem; opacity: 0.9; display: flex; align-items: center; gap: 5px; }
+        .online-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        .ai-chat-body { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .chat-bubble { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 0.85rem; line-height: 1.4; }
+        .bot-bubble { background: rgba(255,255,255,0.1); border: var(--glass-border); color: var(--text-color); align-self: flex-start; }
+        .user-bubble { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; align-self: flex-end; }
+        .quick-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+        .chip-btn { background: rgba(56, 189, 248, 0.15); color: var(--dynamic-theme-color); border: 1px solid rgba(56, 189, 248, 0.3); padding: 5px 10px; border-radius: 15px; font-size: 0.75rem; cursor: pointer; transition: 0.3s; }
+        .chip-btn:hover { background: var(--dynamic-theme-color); color: white; }
+        .ai-chat-footer { padding: 12px; border-top: var(--glass-border); }
+        .ai-input-box { display: flex; gap: 8px; }
+        .ai-input-box input { flex: 1; padding: 10px 14px; border-radius: 25px; border: var(--glass-border); outline: none; font-size: 0.85rem; background: rgba(0,0,0,0.2); color: var(--text-color); }
+        [data-theme="light"] .ai-input-box input { background: #ffffff; border-color: rgba(0,0,0,0.15); }
+        .ai-send-btn { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #4f46e5, #9333ea); color: white; border: none; cursor: pointer; }
+
+        /* DETAILED & PROFESSIONAL FOOTER */
+        .footer { 
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.95), #090d16); 
+            color: #f1f5f9; 
+            padding: 50px 5% 20px; 
+            margin-top: 50px; 
+            border-top: 3px solid var(--dynamic-theme-color); 
+        }
+        .footer-container {
+            max-width: 1400px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .footer-col h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dynamic-theme-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-col p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .footer-links li a {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .footer-links li a:hover {
+            opacity: 1;
+            color: var(--dynamic-theme-color);
+            transform: translateX(4px);
+        }
+        .footer-contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+        .footer-contact-info div {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .footer-contact-info i {
+            color: var(--dynamic-theme-color);
+            margin-top: 4px;
+        }
+        .footer-bottom { 
+            max-width: 1400px;
+            margin: auto;
+            padding-top: 20px; 
+            border-top: 1px solid rgba(255,255,255,0.1); 
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            opacity: 0.7; 
+            font-size: 0.85rem; 
+        }
+        .management-badge {
+            background: rgba(56, 189, 248, 0.15);
+            padding: 6px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            font-size: 0.85rem;
+            color: var(--dynamic-theme-color);
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .highlight-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-banner-box { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .highlight-grid { grid-template-columns: 1fr; }
+            .process-flow-grid { grid-template-columns: 1fr; gap: 15px; }
+            .process-flow-grid::before { display: none; }
+            .hero h1 { font-size: 2.1rem; }
+            .nav-links { display: none; }
+            .status-form { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
+    <!-- Header Navigation -->
     <header class="header">
         <div class="nav-container">
-            <div class="logo">
-                <i class="fa-solid fa-laptop-code"></i>
-                <span>Tez Shiva Nexus</span>
-            </div>
+            <a href="#home" class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/512/3659/3659898.png" alt="Tez Shiva Nexus Logo" class="logo-icon-png">
+                <span class="logo-text">Tez Shiva Nexus</span>
+            </a>
             
             <div class="header-right">
                 <nav class="nav-menu">
                     <ul class="nav-links">
                         <li><a href="#home">Home</a></li>
-                        <li><a href="#services">Suvidhayein</a></li>
-                        <li><a href="contact.html" class="login-btn">Contact Us</a></li>
+                        <li><a href="#new-services">New Highlights</a></li>
+                        <li><a href="#process-stages">Process Flow</a></li>
+                        <li><a href="#services">All Services</a></li>
+                        <li><a href="#status-check" class="status-menu-btn"><i class="fa-solid fa-clock-rotate-left"></i> Track Status</a></li>
+                        <li><a href="#contact" style="color:var(--dynamic-theme-color);">Get In Touch</a></li>
                         <li><a href="login.html" class="login-btn">Login</a></li>
-
-
                     </ul>
                 </nav>
-                <div class="controls">
-                    <button id="theme-toggle" aria-label="Toggle Dark Mode">
-                        <i class="fa-solid fa-moon"></i>
-                    </button>
-                    <button class="hamburger" aria-label="Menu">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-                </div>
+            </div>
+            <div class="controls">
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Mode">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
             </div>
         </div>
     </header>
 
-    <div class="menu-overlay"></div>
-
-    <div class="news-ticker">
-        <div class="ticker-title">Updates</div>
-        <div class="ticker-content">
-            <div class="ticker-text">
-                🚨 SSC CGL Form Last Date: 25th July | 🚨 PM Kisan 14th Installment KYC Shuru | 🚨 UP Scholarship Forms Available Now | 🚨 Aadhaar-PAN Link Aakhiri Tarikh!
+    <!-- Smooth Single-Line Marquee -->
+    <div class="yojna-live-box">
+        <span class="live-badge"><i class="fa-solid fa-bolt"></i> NEW LIVE</span>
+        <div class="marquee-container">
+            <div class="marquee">
+                <span>🚨 PM Vishwakarma Yojana Forms Started!</span>
+                <span>🚨 Ayushman Card Free Registration Open</span>
+                <span>🚨 Up to ₹50,000 Loan under Mudra Yojana</span>
+                <span>🚨 E-Shram Card KYC Update Mandatory!</span>
             </div>
         </div>
     </div>
 
     <main>
+        <!-- Hero Section -->
         <section id="home" class="hero">
             <div class="hero-content">
-                <div class="badge">100% Secure & Fast</div>
-                <h1 id="hero-changing-text">Aapka Apna Digital Cyber Cafe</h1>
-                
-                <p>Sushil Kumar & Tezz Shiva,Shri Ram Aadhaar E Sewa Kendra,Sabhi sarkari form, banking suvidha, aur online kaamo ke liye aapka bharosemand aur tez sathi.</p>
-                <a href="#services" class="btn btn-primary">Hamari Suvidhayein Dekhein <i class="fa-solid fa-arrow-right"></i></a>
+                <div class="badge"><i class="fa-solid fa-microchip"></i> AI-Powered Intelligent Document Processing</div>
+                <div class="changing-text-wrapper">
+                    <h1 id="hero-changing-text">Aapka Apna Digital Cyber Cafe</h1>
+                </div>
+                <p>Shri Ram Aadhaar E Sewa Kendra. Fast document processing, online government forms, and secure digital banking.</p>
+                <a href="#new-services" class="btn btn-primary">Check New Services <i class="fa-solid fa-arrow-down"></i></a>
             </div>
         </section>
 
+        <!-- HIGHLIGHTED 5 NEW SERVICES SECTION -->
+        <section class="highlight-services-section" id="new-services">
+            <div class="highlight-header">
+                <h2><i class="fa-solid fa-star"></i> Featured 5 Brand New Services</h2>
+                <p>Abhi haal hi mein launch ki gayi sabse khaas aur fast digital sevaayein:</p>
+            </div>
+
+            <div class="highlight-grid">
+                <!-- Service 1 -->
+                <div class="highlight-card">
+                    <div class="highlight-icon"><i class="fa-solid fa-address-card"></i></div>
+                    <h3>Smart Ayushman PVC Card</h3>
+                    <p>Hologram wali waterproof plastic Ayushman golden card print instant generate karein.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="highlight-card">
+                    <div class="highlight-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                    <h3>Instant e-Mudra Loan</h3>
+                    <p>Sirf 10 minute mein bina kisi bank chakkar ke ₹50,000 tak ka mudra loan apply karein.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="highlight-card">
+                    <div class="highlight-icon"><i class="fa-solid fa-passport"></i></div>
+                    <h3>Tatkal Passport Seva</h3>
+                    <p>Police verification guidance aur fast online passport appointment booking.</p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="highlight-card">
+                    <div class="highlight-icon"><i class="fa-solid fa-car"></i></div>
+                    <h3>Driving Licence Smart Card</h3>
+                    <p>Learner DL, Address Change aur Smart PVC Driving Licence printout seva.</p>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="highlight-card">
+                    <div class="highlight-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                    <h3>Fast ITR & Pan Linking</h3>
+                    <p>Income Tax Return filing, Pan-Aadhaar linking aur GST registration support.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Tracker Section -->
+        <section id="status-check" class="status-section">
+            <div class="status-card">
+                <h2><i class="fa-solid fa-magnifying-glass-chart" style="color: #38bdf8;"></i> Application Status Tracker</h2>
+                <p style="opacity: 0.8; margin-top: 5px;">Select official service portal to track status:</p>
+                
+                <form class="status-form" onsubmit="checkApplicationStatus(event)">
+                    <select id="status_service" class="status-select" required>
+                        <option value="">-- Select Portal Service --</option>
+                        <option value="https://tin.tin.proteantech.in/pantan/StatusTrack.html">PAN Card Status (NSDL / Protean)</option>
+                        <option value="https://myaadhaar.uidai.gov.in/CheckAadhaarStatus">Aadhaar Status Check (UIDAI)</option>
+                        <option value="https://myaadhaar.uidai.gov.in/genricDownloadAadhaar/en">Aadhaar Download</option>
+                        <option value="https://pmkisan.gov.in/FarmerStatus.aspx">PM Kisan Nidhi Status</option>
+                    </select>
+
+                    <button type="submit" class="status-btn">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Portal
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Document Process Flow -->
+        <section class="stages-process-section" id="process-stages">
+            <div class="stages-card">
+                <div class="stages-title-box">
+                    <h3><i class="fa-solid fa-diagram-project"></i> Document Processing Workflow</h3>
+                    <p>How your application moves securely through our 5-Stage Digital System:</p>
+                </div>
+
+                <div class="process-flow-grid">
+                    <div class="step-node-card">
+                        <div class="node-icon-badge s-1"><i class="fa-solid fa-file-arrow-up"></i></div>
+                        <h4 class="step-title">Upload & Scan</h4>
+                        <p class="step-desc">Document submission and high-clarity digital scanning.</p>
+                    </div>
+
+                    <div class="step-node-card">
+                        <div class="node-icon-badge s-2"><i class="fa-solid fa-microchip"></i></div>
+                        <h4 class="step-title">AI Data Check</h4>
+                        <p class="step-desc">Automated system validation and data field extraction.</p>
+                    </div>
+
+                    <div class="step-node-card">
+                        <div class="node-icon-badge s-3"><i class="fa-solid fa-user-check"></i></div>
+                        <h4 class="step-title">Expert Verification</h4>
+                        <p class="step-desc">Manual cross-check by certified Kendra operator.</p>
+                    </div>
+
+                    <div class="step-node-card">
+                        <div class="node-icon-badge s-4"><i class="fa-solid fa-stamp"></i></div>
+                        <h4 class="step-title">Official Approval</h4>
+                        <p class="step-desc">Direct submission to respective government portal.</p>
+                    </div>
+
+                    <div class="step-node-card">
+                        <div class="node-icon-badge s-5"><i class="fa-solid fa-circle-check"></i></div>
+                        <h4 class="step-title">Final Delivery</h4>
+                        <p class="step-desc">Instant digital certificate generation & printout.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- All Services Grid -->
         <section id="services" class="services">
             <div class="section-header">
-                <h2>Sabhi Online Suvidhayein</h2>
+                <h2>All Digital Services</h2>
                 <div class="header-line"></div>
             </div>
             
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="icon-box blue"><i class="fa-solid fa-id-card"></i></div>
+                    <div class="icon-box"><i class="fa-solid fa-id-card"></i></div>
                     <h3>Aadhaar & PAN</h3>
-                    <p>Aadhaar download, PVC order, aur naya PAN card banwayein.</p>
+                    <p>Aadhaar download, PVC print, and instant PAN card application.</p>
                 </div>
                 
                 <div class="service-card">
-                    <div class="icon-box green"><i class="fa-solid fa-building-columns"></i></div>
+                    <div class="icon-box"><i class="fa-solid fa-building-columns"></i></div>
                     <h3>Banking & AEPS</h3>
-                    <p>Anguthe se paise nikalna, jama karna aur money transfer.</p>
+                    <p>Biometric cash withdrawal, mini statement, and fast money transfer.</p>
                 </div>
 
                 <div class="service-card">
-                    <div class="icon-box orange"><i class="fa-solid fa-user-graduate"></i></div>
+                    <div class="icon-box"><i class="fa-solid fa-user-graduate"></i></div>
                     <h3>Student Forms</h3>
-                    <p>Admission, Scholarship, aur sabhi Sarkari Naukri ke forms.</p>
+                    <p>College admission, scholarship applications, and admit card download.</p>
                 </div>
 
                 <div class="service-card">
-                    <div class="icon-box purple"><i class="fa-solid fa-tractor"></i></div>
+                    <div class="icon-box"><i class="fa-solid fa-tractor"></i></div>
                     <h3>Kisan Suvidha</h3>
-                    <p>PM Kisan KYC, Fasal Bima, aur Khatauni (Bhulekh) print.</p>
+                    <p>PM Kisan E-KYC update, crop insurance, and Khatauni land records.</p>
                 </div>
 
                 <div class="service-card">
-                    <div class="icon-box pink"><i class="fa-solid fa-person-dress"></i></div>
-                    <h3>Mahila Yojana</h3>
-                    <p>Matru Vandana, Ujjwala Yojana, aur Pension ke forms.</p>
+                    <div class="icon-box"><i class="fa-solid fa-person-dress"></i></div>
+                    <h3>Mahila Schemes</h3>
+                    <p>Matru Vandana, Ujjwala Gas Scheme, and pension application assistance.</p>
                 </div>
 
                 <div class="service-card">
-                    <div class="icon-box red"><i class="fa-solid fa-print"></i></div>
-                    <h3>Cyber Print</h3>
-                    <p>Color Print, Lamination, Scan, aur Passport Size Photo.</p>
+                    <div class="icon-box"><i class="fa-solid fa-print"></i></div>
+                    <h3>Cyber Printing</h3>
+                    <p>HD color printing, plastic card lamination, and photo studio services.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="icon-box"><i class="fa-solid fa-check-to-slot"></i></div>
+                    <h3>Voter ID Portal</h3>
+                    <p>New voter registration, address correction, and status checking.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="icon-box"><i class="fa-solid fa-notes-medical"></i></div>
+                    <h3>Ayushman Card</h3>
+                    <p>Free registration for ₹5 Lakh health coverage under PM scheme.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- IMPROVED ATTRACTIVE "GET IN TOUCH" SECTION WITH AI BACKGROUND ROTATION -->
+        <section class="dynamic-contact-section" id="contact">
+            <div class="contact-banner-box" id="contactBannerBox">
+                <div class="contact-left-content">
+                    <div class="live-status-pill">
+                        <span class="blinking-dot"></span>
+                        <span id="dynamic-greeting-status">🟢 Live Support Available Right Now!</span>
+                    </div>
+                    <h2 id="dynamic-headline-text">Get In Touch With Our Experts</h2>
+                    <p id="dynamic-subtext-text">Kisih bhi sarkari form, document update ya banking seva ke liye humse direct sampark karein. Humari team aapki madad ke liye taiyar hai.</p>
+                    <a href="https://wa.me/918077330917?text=Hello%20Tez%20Shiva%20Nexus,%20I%20want%20inquiry%20regarding%20services" target="_blank" class="btn-primary" style="background: white; color: #4f46e5;">
+                        <i class="fa-brands fa-whatsapp" style="color: #22c55e; font-size: 1.2rem;"></i> Direct Chat on WhatsApp
+                    </a>
+                </div>
+
+                <div class="contact-right-cards">
+                    <a href="tel:+918077330917" class="interactive-contact-card">
+                        <div class="ic-info">
+                            <h4>Direct Helpline Number</h4>
+                            <p>+91 8077330917</p>
+                        </div>
+                        <div class="ic-action-btn"><i class="fa-solid fa-phone"></i></div>
+                    </a>
+
+                    <a href="mailto:help@tezshivanexus.in" class="interactive-contact-card">
+                        <div class="ic-info">
+                            <h4>Official Support Email</h4>
+                            <p>help@tezshivanexus.in</p>
+                        </div>
+                        <div class="ic-action-btn"><i class="fa-solid fa-envelope"></i></div>
+                    </a>
+
+                    <div class="interactive-contact-card" style="cursor: default;">
+                        <div class="ic-info">
+                            <h4>Kendra Location</h4>
+                            <p style="font-size: 0.92rem; font-weight: 500; margin-top: 2px;">Shri Ram Janki Market, Charkhari, Near Govt Hospital</p>
+                        </div>
+                        <div class="ic-action-btn"><i class="fa-solid fa-location-dot"></i></div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer id="contact" class="footer">
-    <div class="footer-content">
-        <h2>Digital Seva Kendra</h2>
-        <p>Aapki har digital zaroorat ka ek hi thikana.</p>
+    <!-- AI Assistant Chat Drawer -->
+    <div class="support-desk-wrapper" id="supportDeskWrapper">
+        <button class="support-toggle-btn" onclick="toggleSupportDesk()">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Tez AI Sahayak
+        </button>
         
-        <div class="contact-info">
-            <span><i class="fa-solid fa-phone"></i> +91 8077330917</span>
-            <span><i class="fa-solid fa-location-dot"></i> Shri Ram Janki Market, Charkhari, Near Govt Hospital, 210421</span>
-        </div>
+        <div class="support-drawer">
+            <div class="ai-header">
+                <div class="ai-bot-info">
+                    <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="ai-details">
+                        <h4>Tez AI Bot</h4>
+                        <span class="ai-status"><span class="online-dot"></span> Online</span>
+                    </div>
+                </div>
+                <button onclick="closeSupportDesk()" style="background:none; border:none; color:white; font-size:1.4rem; cursor:pointer;">&times;</button>
+            </div>
+            
+            <div class="ai-chat-body" id="aiChatBody">
+                <div class="chat-bubble bot-bubble">
+                    👋 Namaste! Main Tez AI Assistant hoon. Nayi services ya document ke baare mein puchhein:
+                    <div class="quick-chips">
+                        <button class="chip-btn" onclick="sendQuickPrompt('Ayushman Card New')">💳 Ayushman Card</button>
+                        <button class="chip-btn" onclick="sendQuickPrompt('Mudra Loan Details')">💰 Mudra Loan</button>
+                        <button class="chip-btn" onclick="sendQuickPrompt('Passport Apply')">🛂 Passport</button>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Multimedia / Social Media Links -->
-        <div class="social-links">
-            <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-            <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            <div class="ai-chat-footer">
+                <form class="ai-input-box" onsubmit="handleAiChatSubmit(event)">
+                    <input type="text" id="aiUserInput" placeholder="Apna sawal yahan likhein..." required autocomplete="off">
+                    <button type="submit" class="ai-send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
         </div>
     </div>
-    
-    <div class="footer-bottom">
-        &copy; 2026 Digital Seva. Fast & Secure.
-    </div>
-</footer>
 
-    <script src="script.js"></script>
+    <!-- Professional Detailed Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3><img src="https://cdn-icons-png.flaticon.com/512/3659/3659898.png" width="24" alt="Logo"> Tez Shiva Nexus</h3>
+                <p>Aapki sabhi online sarkari zaroorato, document scanning, digital banking aur printout sevaon ka ek hi bharosemand thikana.</p>
+                <div class="management-badge">
+                    Managed By: Sushil Kumar & Tezz Shiva
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3><i class="fa-solid fa-link"></i> Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home"><i class="fa-solid fa-angle-right"></i> Home</a></li>
+                    <li><a href="#new-services"><i class="fa-solid fa-angle-right"></i> New Highlights</a></li>
+                    <li><a href="#process-stages"><i class="fa-solid fa-angle-right"></i> Process Flow</a></li>
+                    <li><a href="#services"><i class="fa-solid fa-angle-right"></i> All Services</a></li>
+                    <li><a href="#status-check"><i class="fa-solid fa-angle-right"></i> Track Status</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3><i class="fa-solid fa-shield-halved"></i> Popular Portals</h3>
+                <ul class="footer-links">
+                    <li><a href="https://myaadhaar.uidai.gov.in/" target="_blank"><i class="fa-solid fa-angle-right"></i> UIDAI Aadhaar Portal</a></li>
+                    <li><a href="https://voters.eci.gov.in/" target="_blank"><i class="fa-solid fa-angle-right"></i> National Voter Service</a></li>
+                    <li><a href="https://pmkisan.gov.in/" target="_blank"><i class="fa-solid fa-angle-right"></i> PM Kisan Samman Nidhi</a></li>
+                    <li><a href="https://www.tin-nsdl.com/" target="_blank"><i class="fa-solid fa-angle-right"></i> NSDL PAN Services</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3><i class="fa-solid fa-headset"></i> Get In Touch</h3>
+                <div class="footer-contact-info">
+                    <div>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Shri Ram Janki Market, Charkhari, Near Govt Hospital, Mahoba, UP</span>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+91 8077330917</span>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>help@tezshivanexus.in</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>&copy; 2026 Tez Shiva Nexus. All Rights Reserved. Fast & Secure Intelligent Services.</div>
+            <div style="display: flex; gap: 15px;">
+                <a href="#home">Privacy Policy</a>
+                <a href="#home">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Controls -->
+    <script>
+        // Hero Changing Headlines
+        const titles = [
+            "Aapka Apna Digital Cyber Cafe",
+            "Intelligent Document Processing Center",
+            "100% Fast & Secure Online Seva Kendra",
+            "Shri Ram Aadhaar & Banking Portal"
+        ];
+        let idx = 0;
+        const heroElem = document.getElementById("hero-changing-text");
+
+        setInterval(() => {
+            heroElem.style.opacity = "0";
+            setTimeout(() => {
+                idx = (idx + 1) % titles.length;
+                heroElem.textContent = titles[idx];
+                heroElem.style.opacity = "1";
+            }, 300);
+        }, 3500);
+
+        // TIME-TO-TIME DYNAMIC CHANGING CONTENT & AI CYBER CAFE IMAGES FOR "GET IN TOUCH" SECTION (EVERY 20 SECONDS)
+        const contactPromoList = [
+            {
+                status: "🟢 Live Support Available Right Now!",
+                headline: "Get In Touch With Our Experts",
+                subtext: "Kisih bhi sarkari form, document update ya banking seva ke liye humse direct sampark karein. Humari team aapki madad ke liye taiyar hai.",
+                bgImage: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1400&q=80" // AI Digital workspace theme
+            },
+            {
+                status: "⚡ Fast Response Guaranteed within 5 Mins",
+                headline: "Have Any Urgent Document Issue?",
+                subtext: "Aadhaar, PAN ya Ayushman card mein koi correction karwana ho toh turant WhatsApp ya call ke zariye humari team se judein.",
+                bgImage: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1400&q=80" // High-tech futuristic cyber theme
+            },
+            {
+                status: "🌟 Visit Our Charkhari Kendra Today",
+                headline: "Connect With Sushil & Tezz Shiva",
+                subtext: "Shri Ram Janki Market mein humara physical centre subah 8 baje se raat 8 baje tak khula rehta hai. Aaj hi visit karein!",
+                bgImage: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=80" // Modern computer cafe / workstation hub
+            }
+        ];
+        let contactIdx = 0;
+        
+        setInterval(() => {
+            contactIdx = (contactIdx + 1) % contactPromoList.length;
+            const currentPromo = contactPromoList[contactIdx];
+            
+            const bannerBox = document.getElementById('contactBannerBox');
+            const statusElem = document.getElementById('dynamic-greeting-status');
+            const headlineElem = document.getElementById('dynamic-headline-text');
+            const subtextElem = document.getElementById('dynamic-subtext-text');
+
+            if(bannerBox && statusElem && headlineElem && subtextElem) {
+                statusElem.style.opacity = '0';
+                headlineElem.style.opacity = '0';
+                subtextElem.style.opacity = '0';
+
+                setTimeout(() => {
+                    // Update background image dynamically every 20 seconds
+                    bannerBox.style.backgroundImage = `linear-gradient(135deg, rgba(15, 23, 42, 0.90), rgba(79, 70, 229, 0.82)), url('${currentPromo.bgImage}')`;
+                    
+                    statusElem.textContent = currentPromo.status;
+                    headlineElem.textContent = currentPromo.headline;
+                    subtextElem.textContent = currentPromo.subtext;
+
+                    statusElem.style.opacity = '1';
+                    headlineElem.style.opacity = '1';
+                    subtextElem.style.opacity = '1';
+                }, 400);
+            }
+        }, 20000); // 20 seconds interval as requested
+
+        // Dark/Light Theme Toggle (Defaults to Dark)
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.querySelector('#theme-toggle i');
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.setAttribute('data-theme', 'light');
+                icon.className = 'fa-solid fa-moon';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.className = 'fa-solid fa-sun';
+            }
+        }
+
+        // Status Tracker Function
+        function checkApplicationStatus(e) {
+            e.preventDefault();
+            const targetUrl = document.getElementById('status_service').value;
+            if (targetUrl) window.open(targetUrl, '_blank');
+            else alert("Kripya ek portal select karein.");
+        }
+
+        // AI Chat Drawer Controls
+        const drawer = document.getElementById('supportDeskWrapper');
+        function toggleSupportDesk() { drawer.classList.toggle('active'); }
+        function closeSupportDesk() { drawer.classList.remove('active'); }
+
+        // AI Chat Simulation
+        function handleAiChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('aiUserInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            appendMsg(msg, 'user');
+            input.value = '';
+
+            setTimeout(() => {
+                let reply = "⚡ Aapke is request ke liye humare executive Sushil Kumar Ji se WhatsApp par sampark karein.";
+                if (msg.toLowerCase().includes('ayushman')) reply = "💳 Smart Ayushman PVC card ke liye apna Aadhaar card aur purana card lekar Kendra par aayein ya WhatsApp par bhejein.";
+                else if (msg.toLowerCase().includes('mudra') || msg.toLowerCase().includes('loan')) reply = "💰 e-Mudra loan ke liye bank passbook, Aadhaar aur PAN card ki zaroorat hoti hai.";
+                else if (msg.toLowerCase().includes('passport')) reply = "🛂 Tatkal passport appointment booking ke liye hamari team se sampark karein.";
+
+                appendMsg(reply + `<br><br><a href="https://wa.me/918077330917?text=${encodeURIComponent(msg)}" target="_blank" style="color:#22c55e; font-weight:bold; display:flex; align-items:center; gap:5px;"><i class="fa-brands fa-whatsapp" style="font-size:1.1rem;"></i> Chat on WhatsApp</a>`, 'bot');
+            }, 600);
+        }
+
+        function sendQuickPrompt(txt) {
+            document.getElementById('aiUserInput').value = txt;
+            handleAiChatSubmit(new Event('submit'));
+        }
+
+        function appendMsg(text, sender) {
+            const body = document.getElementById('aiChatBody');
+            const div = document.createElement('div');
+            div.className = `chat-bubble ${sender === 'user' ? 'user-bubble' : 'bot-bubble'}`;
+            div.innerHTML = text;
+            body.appendChild(div);
+            body.scrollTop = body.scrollHeight;
+        }
+    </script>
 </body>
 </html>
